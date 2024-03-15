@@ -1,0 +1,12 @@
+<div class="live">
+    <div class="z-0 map">
+
+        <app-map (newItemEvent) = "addItem($event)"></app-map>
+    </div>
+    <!-- <app-map ></app-map> -->
+
+    <div *ngIf="showSidebar" class="absolute top-0 left-0 z-50 w-4/5 h-full transition ease-in-out delay-150 bg-red-500 side">
+        <app-sidebar ></app-sidebar>
+    </div>
+
+</div>
