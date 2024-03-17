@@ -10,6 +10,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+/**
+ * Represents the root component of the geoloc application.
+ */
 export class AppComponent {
   title = 'geoloc';
 }

@@ -9,157 +9,124 @@ import * as L from 'leaflet';
   styleUrl: './map.component.css'
 })
 
-export class MapComponent implements OnInit, AfterViewInit{
 
-  private map!: L.Map
+
+
+export class MapComponent implements OnInit, AfterViewInit {
+  private map!: L.Map;
   markers: L.Marker[] = [];
+  carIcons: L.Icon[] = []; // Array to store car icons
 
+  @Output() newItemEvent: any = new EventEmitter<string>();
 
-  @Output() newItemEvent:any = new EventEmitter<string>();
+  
+  positions: L.LatLng[][] = [
+    [
+      L.latLng(36.718939, 3.181767),
+      L.latLng(36.718949, 3.181777),
+      L.latLng(36.718959, 3.181787)
+    ],
+    [
+      L.latLng(36.718944, 3.181772),
+      L.latLng(36.718954, 3.181782),
+      L.latLng(36.718964, 3.181792)
+    ],
+    [
+      L.latLng(36.718941, 3.181769),
+      L.latLng(36.718951, 3.181779),
+      L.latLng(36.718961, 3.181789)
+    ],
+    [
+      L.latLng(36.718946, 3.181774),
+      L.latLng(36.718956, 3.181784),
+      L.latLng(36.718966, 3.181794)
+    ],
+    [
+      L.latLng(36.718943, 3.181771),
+      L.latLng(36.718953, 3.181781),
+      L.latLng(36.718963, 3.181791)
+    ]
+  ];// Array to store positions for each car
 
-
-  positions: L.LatLng[] = [];
-  nmarker: L.Marker = L.marker([36.4233, 3.1105]);
-        // Create a custom car icon
-         carIcon = L.icon({
-          iconUrl: './../../assets/gps-navigation.png', // URL to your car icon image
-          iconSize: [38, 38], // size of the icon
-          iconAnchor: [19, 19], // point of the icon which will correspond to marker's location
-        });
-
-
-
+  
   ngAfterViewInit(): void {
     this.initializeMap();
     this.addMarkers();
     this.centerMap();
+    this.updateCarPositions(); // Call the new method to update car positions
   }
-  ngOnInit(): void {
-    this.updateCarPosition();
 
+  ngOnInit(): void {
+    this.newItemEvent.subscribe((data: string) => {
+      console.log('New item:', data);
+    });
   }
 
   private initializeMap() {
-
-
-
     this.map = L.map('map').setView([36.718939, 3.181767], 5);
-
-    const baseMapURl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    // this.map = L.map('map');
+    const baseMapURl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     L.tileLayer(baseMapURl).addTo(this.map);
   }
 
-
   private addMarkers() {
-    // Add your markers to the map
 
+    let carIcon = L.icon({
+      iconUrl: './../../assets/gps-navigation.png', // URL to your car icon image
+      iconSize: [38, 38], // size of the icon
+      iconAnchor: [19, 19], // point of the icon which will correspond to marker's location
+    });
     const markerOptions = {
-      id: 1,
-      title: 'Marker 1',
-      icon: this.carIcon // Assuming carIcon is already defined
+      title: 'Marker',
+      icon: carIcon // Assuming carIcon is already defined
+
     };
 
-    this.nmarker = L.marker(L.latLng([36.718939, 3.181767]), markerOptions).addTo(this.map).on('click', this.onMarker.bind(this));
-    this.markers.forEach(marker => {
-      
-      marker.addTo(this.map).on('click', (e) => {
-        // console.log(111);
-        
+    // Generate multiple car icons and add markers to the map
+    for (let i = 0; i < 5; i++) {
+      const carIcon = L.icon({
+        iconUrl: './../../assets/gps-navigation.png', // URL to your car icon image
+        iconSize: [38, 38],
+        iconAnchor: [19, 19],
       });
 
-   
+      this.carIcons.push(carIcon);
 
-    } )
+      const marker = L.marker(this.generateRandomPosition(), markerOptions)
+        .addTo(this.map)
+        .on('click', this.onMarker.bind(this));
+      this.markers.push(marker);
+    }
   }
 
-  private   onMarker(event: any) {
-  // Retrieve the marker from the event
-
-
-  this.newItemEvent.emit('d');
-
-  const marker = event.target;
-
-  // Retrieve the marker ID from its options
-  const markerId = marker.options.id;
-
-  // Now you have access to the marker ID, you can use it as needed
-  console.log('Marker ID:', markerId);    
-
-
-    
+  private onMarker(event: any) {
+    const marker = event.target;
+    const markerId = this.markers.indexOf(marker);
+    console.log('Marker ID:', markerId);
+    this.newItemEvent.emit(`Marker ID: ${markerId}`);
   }
 
   private centerMap() {
-    // Create a LatLngBounds object to encompass all the marker locations
-    const bounds = L.latLngBounds(this.markers.map(marker => marker.getLatLng()));
-    
-    // Fit the map view to the bounds
+    const bounds = L.latLngBounds(this.markers.map((marker) => marker.getLatLng()));
     this.map.fitBounds(bounds);
   }
 
+  private updateCarPositions(): void {
+    setInterval(() => {
+      this.positions.forEach((path, index) => {
+        const newPosition = L.latLng(path[0]);
+        path.shift(); // Remove the first position from the path
 
-  private updateCarPosition(): void {
+        if (path.length === 0) {
+          // Generate a new random path when the current path is empty
+          path.push(...this.generateRandomPath());
+        }
 
-
-    const path : any= [
-      [36.718939, 3.181767], 
-      [36.718892,3.181906],
-      [36.718857,3.182003], 
-      [36.718810,3.182116], 
-      [36.718746,3.182207], 
-      [36.718690,3.182325], 
-      [36.718608,3.182395], 
-      [36.718531,3.182502], 
-      [36.718466,3.182620], 
-      [36.718316,3.182853], 
-      [36.718221,3.183068], 
-      [36.718109,3.183250], 
-      [36.717937,3.183508], 
-      [36.717774,3.183787],
-      [36.717696,3.183894], 
-      [36.717533,3.184216], 
-      [36.717327,3.184614], 
-      [36.717167,3.184844], 
-      [36.716857,3.185370], 
-      
-      // Add more waypoints as needed
-    ];
-
-    let index = 0; // Index to track the current position in the path
-
-    
-    // setInterval(() => {
-    //   // Generate a random position (for demonstration purposes)
-    //   const newPosition = L.latLng(path[index]);
-
-
-
-    //   // Store the new position
-    //   this.positions.push(newPosition);
-
-
-    //   // Remove the previous marker from the map
-    //   if (this.nmarker) {
-    //     this.map.removeLayer(this.nmarker);
-    //   }
-
-
-
-    //   // Add a marker with the custom car icon at the new position
-    //   this.nmarker = L.marker(newPosition, { icon: this.carIcon }).addTo(this.map);
-
-    //   this.map.panTo(newPosition);
-
-    //   index = (index + 1) % path.length;
-
-
-    // }, 1000);
+        this.markers[index].setLatLng(newPosition);
+      });
+    }, 1000);
   }
 
   private generateRandomPosition(): L.LatLng {
-    // Generate random latitude and longitude within a range
     const minLat = 36.4;
     const maxLat = 36.6;
     const minLng = 2.6;
@@ -169,4 +136,15 @@ export class MapComponent implements OnInit, AfterViewInit{
     return L.latLng(lat, lng);
   }
 
+  private generateRandomPath(): L.LatLng[] {
+    const path: L.LatLng[] = [];
+    const numWaypoints = Math.floor(Math.random() * 10) + 5; // Random number of waypoints between 5 and 14
+
+    for (let i = 0; i < numWaypoints; i++) {
+      path.push(this.generateRandomPosition());
+    }
+
+    return path;
+  }
 }
+
