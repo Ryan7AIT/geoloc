@@ -12,7 +12,7 @@ import * as L from 'leaflet';
 
 
 
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit {
   private map!: L.Map;
   markers: L.Marker[] = [];
   carIcons: L.Icon[] = []; // Array to store car icons
@@ -49,21 +49,22 @@ export class MapComponent implements OnInit, AfterViewInit {
   ];// Array to store positions for each car
 
   
-  ngAfterViewInit(): void {
-    this.initializeMap();
-    this.addMarkers();
-    this.centerMap();
-    this.updateCarPositions(); // Call the new method to update car positions
-  }
+  // ngAfterViewInit(): void {
+  //   this.initializeMap();
+  //   this.addMarkers();
+  //   this.centerMap();
+  //   this.updateCarPositions(); // Call the new method to update car positions
+  // }
 
   ngOnInit(): void {
-    this.newItemEvent.subscribe((data: string) => {
-      console.log('New item:', data);
-    });
+    this.initializeMap();
+    this.addMarkers();
+    // this.centerMap();
+    this.updateCarPositions();
   }
 
   private initializeMap() {
-    this.map = L.map('map').setView([36.718939, 3.181767], 5);
+    this.map = L.map('map').setView([36.718939, 3.181767], 6);
     const baseMapURl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     L.tileLayer(baseMapURl).addTo(this.map);
   }
@@ -123,7 +124,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
         this.markers[index].setLatLng(newPosition);
       });
-    }, 1000);
+    }, 2000);
   }
 
   private generateRandomPosition(): L.LatLng {
@@ -146,5 +147,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     return path;
   }
+
+
+
+  
+
 }
 

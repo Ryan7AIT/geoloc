@@ -13,7 +13,7 @@ import { ContainerComponent } from '../container/container.component';
 })
 export class RealTimeStatsComponent {
 
-   showSidebar = true;
+   showSidebar = false;
 
      addItem(newItem: string) {
     console.log(newItem);

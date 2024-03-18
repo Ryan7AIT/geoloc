@@ -7,11 +7,13 @@ import { Routes } from '@angular/router';
 
 import { RealTimeStatsComponent } from './real-time-stats/real-time-stats.component';
 import { FmsStatsComponent } from './fms-stats/fms-stats.component';
-
+import { PredictionComponent } from './prediction/prediction.component';
 
 const routes: Routes = [
   { path: 'realtime', component: RealTimeStatsComponent },
   { path: 'dashboard', component: FmsStatsComponent },
+  { path: 'prediction', component: PredictionComponent },
+  { path: '', redirectTo: '/realtime', pathMatch: 'full' }
 
 ];
 
