@@ -12,6 +12,8 @@ import { DashboardService } from '../dashboard.service';
 export class CarUtilizationComponent {
 
   constructor(private dashboardService: DashboardService) {}
+  public thing_id = 0;  
+
   public xAxisLabels: string[] = [];
   public yAxisData: number[] = [];
   public yAxisData2: number[] = [];
@@ -19,9 +21,11 @@ export class CarUtilizationComponent {
 
   ngOnInit(): void {
     this.createChart();
-    this.getDataFromApi(629);
+    setTimeout(() => {  this.getDataFromApi(this.thing_id); }, 100);
   }
 
+
+  
   public chart: any;
 
   createChart() {
@@ -68,7 +72,6 @@ export class CarUtilizationComponent {
     this.dashboardService.getSpentTime(thing_id).subscribe(
       (data:any) => {
         // Process the data returned from the API
-        console.log('test');
         this.xAxisLabels = data[0];
         this.yAxisData = data[1];
         this.yAxisData2 = data[2];
@@ -90,10 +93,10 @@ export class CarUtilizationComponent {
   }
 
 
-  updateDashboard(mode:string) {
+  updateDashboard(mode:string,thing_id:any) {
 
     if(mode=='yearly') {
-      this.dashboardService.getSpentTime(629).subscribe(
+      this.dashboardService.getSpentTime(thing_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -116,7 +119,7 @@ export class CarUtilizationComponent {
 
     
     }else if(mode=='monthly') {
-      this.dashboardService.getSpentTimeMonths(629).subscribe(
+      this.dashboardService.getSpentTimeMonths(thing_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -143,7 +146,7 @@ export class CarUtilizationComponent {
     
     }
     else if(mode=='daily') {
-      this.dashboardService.getSpentTimeDays(629).subscribe(
+      this.dashboardService.getSpentTimeDays(thing_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];

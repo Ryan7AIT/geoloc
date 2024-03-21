@@ -13,7 +13,7 @@ import { DashboardService } from '../dashboard.service';
 export class AvgMaxSpeedChartComponent {
 
   constructor(private dashboardService: DashboardService) {}
-  public thing_id = 629;  
+  public thing_id = 0;  
 
 
   public chart: any = null;
@@ -23,7 +23,7 @@ export class AvgMaxSpeedChartComponent {
 
   ngOnInit(): void {
     this.createChart();
-    this.getDataFromApi(this.thing_id);
+    setTimeout(() => {  this.getDataFromApi(this.thing_id); }, 150);
 
   }
 
@@ -130,10 +130,10 @@ export class AvgMaxSpeedChartComponent {
 
 
 
-  updateDashboard(mode:string) {
+  updateDashboard(mode:string,thing_id:any) {
 
     if(mode=='yearly') {
-      this.dashboardService.getSpeed(629).subscribe(
+      this.dashboardService.getSpeed(thing_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -158,7 +158,7 @@ export class AvgMaxSpeedChartComponent {
   
     
     }else if(mode=='monthly') {
-      this.dashboardService.getSpeedMonth(629).subscribe(
+      this.dashboardService.getSpeedMonth(thing_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -187,7 +187,7 @@ export class AvgMaxSpeedChartComponent {
     
     }
     else if(mode=='daily') {
-      this.dashboardService.getSpeedDays(629).subscribe(
+      this.dashboardService.getSpeedDays(thing_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];

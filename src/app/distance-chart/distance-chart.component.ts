@@ -14,7 +14,7 @@ import { DashboardService } from '../dashboard.service';
 export class DistanceChartComponent {
 
   constructor(private httpClient: HttpClient,private dashboardService: DashboardService) {}
-  public thing_id = 629;  
+  public thing_id = 0;  
 
 
   public chart: any;
@@ -23,9 +23,14 @@ export class DistanceChartComponent {
   public xAxisType: 'month' | 'year' | 'day' = 'month';
 
   ngOnInit(): void {
+    
     this.createChart();
 
-    this.getDataFromApi(this.thing_id);
+    setTimeout(() => {
+      this.getDataFromApi(this.thing_id);
+
+    }, 50);
+
 
   }
 
@@ -75,11 +80,11 @@ export class DistanceChartComponent {
   
 
 
-  updateDashboard(mode:string) {
+  updateDashboard(mode:string,thing_id:any) {
 
     if(mode=='yearly') {
 
-      this.dashboardService.getDistanceTravlledYears(629).subscribe(
+      this.dashboardService.getDistanceTravlledYears(thing_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -103,7 +108,7 @@ export class DistanceChartComponent {
 
     
     }else if(mode=='monthly') {
-      this.dashboardService.getDistanceTravlledMonth(629).subscribe(
+      this.dashboardService.getDistanceTravlledMonth(thing_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -128,7 +133,7 @@ export class DistanceChartComponent {
     
     }
     else if(mode=='daily') {
-      this.dashboardService.getDistanceTravlledDays(629).subscribe(
+      this.dashboardService.getDistanceTravlledDays(thing_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
