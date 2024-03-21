@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js';
+import { DashboardService } from '../dashboard.service';
+
 
 @Component({
   selector: 'app-avg-max-speed-chart',
@@ -10,37 +12,47 @@ import { Chart } from 'chart.js';
 })
 export class AvgMaxSpeedChartComponent {
 
-  ngOnInit(): void {
-    this.createChart();
-  }
+  constructor(private dashboardService: DashboardService) {}
+  public thing_id = 629;  
+
 
   public chart: any = null;
+  public xAxisLabels: string[] = [];
+  public yAxisData: number[] = [];
+  public yAxisData2: number[] = [];
 
-  public avgSpeedData: number[] = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100));
+  ngOnInit(): void {
+    this.createChart();
+    this.getDataFromApi(this.thing_id);
+
+  }
+
+
+  // public avgSpeedData: number[] = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100));
   public maxSpeedData: number[] = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100));
-
+// 
   public selectedDay: number = 0;
 
   createChart() {
-    const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 'Day 10', 'Day 11', 'Day 12', 'Day 13', 'Day 14', 'Day 15', 'Day 16', 'Day 17', 'Day 18', 'Day 19', 'Day 20'];
-    const visibleDays = days.slice(0, 6);
-    const avgSpeedData = this.avgSpeedData.slice(this.selectedDay, this.selectedDay + 6);
-    const maxSpeedData = this.maxSpeedData.slice(this.selectedDay, this.selectedDay + 6);
+    // const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 'Day 10', 'Day 11', 'Day 12', 'Day 13', 'Day 14', 'Day 15', 'Day 16', 'Day 17', 'Day 18', 'Day 19', 'Day 20'];
+    // const visibleDays = days.slice(0, 6);
+    // const avgSpeedData = this.avgSpeedData.slice(this.selectedDay, this.selectedDay + 6);
+    // const maxSpeedData = this.maxSpeedData.slice(this.selectedDay, this.selectedDay + 6);
 
     this.chart = new Chart('MyChart3', {
       type: 'line',
       data: {
-        labels: visibleDays,
+        labels: this.xAxisLabels,
         datasets: [
           {
             label: 'Average Speed',
-            data: avgSpeedData,
+            data: this.yAxisData,
             borderColor: 'blue',
             fill: false
           },
           {
             label: 'Maximum Speed',
-            data: maxSpeedData,
+            data: this.yAxisData2,
             borderColor: 'red',
             fill: false
           }
@@ -63,30 +75,144 @@ export class AvgMaxSpeedChartComponent {
   previousDay() {
     if (this.selectedDay > 0) {
       this.selectedDay--;
-      this.updateChart();
+      // this.updateChart();
     }
   }
 
   nextDay() {
     if (this.selectedDay < 14) {
       this.selectedDay++;
-      this.updateChart();
+      // this.updateChart();
     }
   }
 
-  updateChart() {
-    const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 'Day 10', 'Day 11', 'Day 12', 'Day 13', 'Day 14', 'Day 15', 'Day 16', 'Day 17', 'Day 18', 'Day 19', 'Day 20'];
-    const visibleDays = days.slice(this.selectedDay, this.selectedDay + 6);
-    const avgSpeedData = this.avgSpeedData.slice(this.selectedDay, this.selectedDay + 6);
-    const maxSpeedData = this.maxSpeedData.slice(this.selectedDay, this.selectedDay + 6);
+  // updateChart() {
+  //   const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 'Day 10', 'Day 11', 'Day 12', 'Day 13', 'Day 14', 'Day 15', 'Day 16', 'Day 17', 'Day 18', 'Day 19', 'Day 20'];
+  //   const visibleDays = days.slice(this.selectedDay, this.selectedDay + 6);
+  //   const avgSpeedData = this.avgSpeedData.slice(this.selectedDay, this.selectedDay + 6);
+  //   const maxSpeedData = this.maxSpeedData.slice(this.selectedDay, this.selectedDay + 6);
 
-    this.chart.data.labels = visibleDays;
-    this.chart.data.datasets[0].data = avgSpeedData;
-    this.chart.data.datasets[1].data = maxSpeedData;
+  //   this.chart.data.labels = visibleDays;
+  //   this.chart.data.datasets[0].data = avgSpeedData;
+  //   this.chart.data.datasets[1].data = maxSpeedData;
+  //   this.chart.update();
+  // }
+  
+  
+
+  getDataFromApi(thing_id: number) {
+    // Call the appropriate method from the dashboard service to fetch data from the API endpoint
+    this.dashboardService.getSpeed(thing_id).subscribe(
+      (data:any) => {
+        // Process the data returned from the API
+
+        
+        this.xAxisLabels = data[0];
+        this.yAxisData = data[1];
+        this.yAxisData2 = data[2];
+
+
+            // Update the chart with the new data
+    this.chart.data.labels = data[0];
+    this.chart.data.datasets[0].data = data[1];
+    this.chart.data.datasets[1].data = data[2];
     this.chart.update();
-  }
-  
-  
 
+
+      },
+      (error:any) => {
+        // Handle any errors that occur during the API call
+        console.error(error);
+      }
+    );
+  }
+
+
+
+
+  updateDashboard(mode:string) {
+
+    if(mode=='yearly') {
+      this.dashboardService.getSpeed(629).subscribe(
+        (data:any) => {
+          // Process the data returned from the API
+          this.xAxisLabels = data[0];
+          this.yAxisData = data[1];
+          this.yAxisData2 = data[2];
+
+     
+              // Update the chart with the new data
+      this.chart.data.labels = this.xAxisLabels;
+      this.chart.data.datasets[0].data = this.yAxisData;
+    this.chart.data.datasets[1].data = this.yAxisData2;
+      this.chart.update();
+  
+  
+        },
+        (error:any) => {
+          // Handle any errors that occur during the API call
+          console.error(error);
+        }
+      );
+  
+  
+    
+    }else if(mode=='monthly') {
+      this.dashboardService.getSpeedMonth(629).subscribe(
+        (data:any) => {
+          // Process the data returned from the API
+          this.xAxisLabels = data[0];
+          this.yAxisData = data[1];
+          this.yAxisData2 = data[2];
+
+  
+              // Update the chart with the new data
+      this.chart.data.labels = this.xAxisLabels;
+      this.chart.data.datasets[0].data = this.yAxisData;
+    this.chart.data.datasets[1].data = this.yAxisData2;
+
+      this.chart.update();
+  
+  
+        },
+        (error:any) => {
+          // Handle any errors that occur during the API call
+          console.error(error);
+        }
+      );
+  
+      // Update the chart with the new data
+
+    
+    
+    }
+    else if(mode=='daily') {
+      this.dashboardService.getSpeedDays(629).subscribe(
+        (data:any) => {
+          // Process the data returned from the API
+          this.xAxisLabels = data[0];
+          this.yAxisData = data[1];
+          this.yAxisData2 = data[2];
+
+  
+              // Update the chart with the new data
+              this.chart.data.labels = this.xAxisLabels;
+              this.chart.data.datasets[0].data = this.yAxisData;
+            this.chart.data.datasets[1].data = this.yAxisData2;
+
+      this.chart.update();
+  
+  
+        },
+        (error:any) => {
+          // Handle any errors that occur during the API call
+          console.error(error);
+        }
+      );
+  
+     
+        }
+
+}
 
 }

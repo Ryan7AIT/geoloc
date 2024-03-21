@@ -1,10 +1,7 @@
-
-
-
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
-
+import { DashboardService } from '../dashboard.service';
 
 
 @Component({
@@ -16,20 +13,48 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DistanceChartComponent {
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,private dashboardService: DashboardService) {}
+  public thing_id = 629;  
 
 
   public chart: any;
-  public xAxisLabels: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  public yAxisData: number[] = [100, 567,123, 200, 300, 400, 500, 200, 600, 700,499, 1000];
+  public xAxisLabels: string[] = [];
+  public yAxisData: number[] = [];
   public xAxisType: 'month' | 'year' | 'day' = 'month';
 
   ngOnInit(): void {
     this.createChart();
+
+    this.getDataFromApi(this.thing_id);
+
+  }
+
+
+  getDataFromApi(thing_id: number) {
+    // Call the appropriate method from the dashboard service to fetch data from the API endpoint
+    this.dashboardService.getDistanceTravlledYears(thing_id).subscribe(
+      (data:any) => {
+        // Process the data returned from the API
+        this.xAxisLabels = data[0];
+        this.yAxisData = data[1];
+
+
+            // Update the chart with the new data
+    this.chart.data.labels = data[0];
+    this.chart.data.datasets[0].data = data[1];
+    this.chart.update();
+
+
+      },
+      (error:any) => {
+        // Handle any errors that occur during the API call
+        console.error(error);
+      }
+    );
   }
 
   createChart() {
-    this.chart = new Chart("MyChart2", {
+    this.chart = new Chart("MyChart212", {
       type: 'bar',
       data: {
         labels: this.xAxisLabels,
@@ -47,33 +72,89 @@ export class DistanceChartComponent {
     });
   }
 
+  
 
-  updateYAxisData(inputType: 'year' | 'month' | 'day') {
-    // Make an HTTP request to the API to get the updated data based on the input type
-    // Replace the URL with the actual API endpoint
-    const apiUrl = 'https://api.example.com/data';
-    // Make the HTTP request using your preferred method (e.g., HttpClient in Angular)
-    // and pass the input type as a query parameter or in the request body
-    // Example using HttpClient in Angular:
-    this.httpClient.get(apiUrl, { params: { inputType } }).subscribe((response: any) => {
-      // Update the yAxisData based on the response from the API
-      this.yAxisData = response.data;
+
+  updateDashboard(mode:string) {
+
+    if(mode=='yearly') {
+
+      this.dashboardService.getDistanceTravlledYears(629).subscribe(
+        (data:any) => {
+          // Process the data returned from the API
+          this.xAxisLabels = data[0];
+          this.yAxisData = data[1];     
+          
+          
+              // Update the chart with the new data
+              this.chart.data.labels = this.xAxisLabels;
+              this.chart.data.datasets[0].data = this.yAxisData;
+              this.chart.update();
+  
+  
+        },
+        (error:any) => {
+          // Handle any errors that occur during the API call
+          console.error(error);
+        }
+      );
+  
       // Update the chart with the new data
+
+    
+    }else if(mode=='monthly') {
+      this.dashboardService.getDistanceTravlledMonth(629).subscribe(
+        (data:any) => {
+          // Process the data returned from the API
+          this.xAxisLabels = data[0];
+          this.yAxisData = data[1];
+    
+  
+              // Update the chart with the new data
+      this.chart.data.labels = this.xAxisLabels;
       this.chart.data.datasets[0].data = this.yAxisData;
       this.chart.update();
-    });
-  }
+  
+  
+        },
+        (error:any) => {
+          // Handle any errors that occur during the API call
+          console.error(error);
+        }
+      );
+  
 
-  updateChart() {
-    // Update the xAxisLabels and yAxisData based on your desired logic
-    this.xAxisLabels = ['August', 'September', 'October', 'November', 'December'];
-    this.yAxisData = [800, 900, 1000, 1100, 1200];
+    
+    
+    }
+    else if(mode=='daily') {
+      this.dashboardService.getDistanceTravlledDays(629).subscribe(
+        (data:any) => {
+          // Process the data returned from the API
+          this.xAxisLabels = data[0];
+          this.yAxisData = data[1];
+    
+      
+          
+          
+              // Update the chart with the new data
+              this.chart.data.labels = this.xAxisLabels;
+              this.chart.data.datasets[0].data = this.yAxisData;
+      this.chart.update();
+  
+  
+        },
+        (error:any) => {
+          // Handle any errors that occur during the API call
+          console.error(error);
+        }
+      );
+  
+     
+        }
 
-    // Update the chart with the new data
-    this.chart.data.labels = this.xAxisLabels;
-    this.chart.data.datasets[0].data = this.yAxisData;
-    this.chart.update();
-  }
-};
+}
 
 
+
+}

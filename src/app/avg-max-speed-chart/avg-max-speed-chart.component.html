@@ -1,12 +1,15 @@
-<div class="container mx-auto mt-2 ">
-    <div class="mb-4">
-        <!-- <button class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700" >Month</button> -->
+
+
+<fieldset class="p-3 border border-gray-300 border-solid">
+    <legend class="px-2 text-lg font-semibold text-gray-400 ">Averge and Max Speed</legend>
+
+    <div class="chart-container">
+        <canvas id="MyChart3" #distanceChart class="w-full"></canvas>
     </div>
-    <div>
-        <canvas id="MyChart3" #distanceChart class="w-full">{{ chart}}</canvas>
+
+    
+    <div class="flex space-x-2 text-lg slider-controls">
+        <button (click)="previousDay()" class="slider-button" >&#8249;</button>
+        <button (click)="nextDay()" class="slider-button" >&#8250;</button>
     </div>
-    <div>
-        <button class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700" (click)="previousDay()">Previous Day</button>
-        <button class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700" (click)="nextDay()">Next Day</button>
-    </div>
-</div>
+</fieldset>

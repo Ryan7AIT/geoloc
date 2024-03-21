@@ -1,9 +1,15 @@
-<div class="container mx-auto mt-2 ">
-    <!-- <h1 class="mb-4 text-2xl font-bold">Distance Chart</h1> -->
-    <div class="mb-4">
-        <button class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700" (click)="updateChart()">Month</button>
+
+
+<fieldset class="p-3 border border-gray-300 border-solid">
+    <legend class="px-2 text-lg font-semibold text-gray-400 ">Distance Chart</legend>
+
+    <div class="chart-container">
+        <canvas id="MyChart212" #distanceChart class="w-full"></canvas>
     </div>
-    <div>
-        <canvas id="MyChart2" #distanceChart class="w-full"></canvas>
+
+    
+    <div class="flex space-x-2 text-lg slider-controls">
+        <button class="slider-button" >&#8249;</button>
+        <button class="slider-button" >&#8250;</button>
     </div>
-</div>
+</fieldset>
