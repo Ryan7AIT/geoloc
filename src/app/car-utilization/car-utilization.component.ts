@@ -93,7 +93,7 @@ export class CarUtilizationComponent {
   }
 
 
-  updateDashboard(mode:string,thing_id:any) {
+  updateDashboard(mode:string,thing_id:any,year?:number,month?:number) {
 
     if(mode=='yearly') {
       this.dashboardService.getSpentTime(thing_id).subscribe(
@@ -119,7 +119,7 @@ export class CarUtilizationComponent {
 
     
     }else if(mode=='monthly') {
-      this.dashboardService.getSpentTimeMonths(thing_id).subscribe(
+      this.dashboardService.getSpentTimeMonths(thing_id,year as number).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -146,7 +146,7 @@ export class CarUtilizationComponent {
     
     }
     else if(mode=='daily') {
-      this.dashboardService.getSpentTimeDays(thing_id).subscribe(
+      this.dashboardService.getSpentTimeDays(thing_id, year as number, month as number).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];

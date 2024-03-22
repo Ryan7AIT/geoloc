@@ -51,27 +51,27 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
 
   //  http://localhost:8000/query/629/distancea?months=1
 
-  getDistanceTravlledMonth(thing_id: any) {
+  getDistanceTravlledMonth(thing_id: any,year: number) {
     let apiUrl: string;
 
     if (thing_id == 0) {
-      apiUrl = `http://localhost:8000/query/distancea?years=2024`;
+      apiUrl = `http://localhost:8000/query/distancea?years=${year}`;
     } else {
-      apiUrl = `http://localhost:8000/query/distancea?years=2024&thing_id=${thing_id}`;
+      apiUrl = `http://localhost:8000/query/distancea?years=${year}&thing_id=${thing_id}`;
     }
 
     return this.http.get(apiUrl);
   }
 
   // http://localhost:8000/query/629/distancea?years=1&months=1
-  getDistanceTravlledDays(thing_id: any) {
+  getDistanceTravlledDays(thing_id: any,year: number,month: number) {
 
     let apiUrl: string;
 
     if (thing_id == 0) {
-      apiUrl = `http://localhost:8000/query/distancea?years=2024&months=${this.currentMonthNumber}`;
+      apiUrl = `http://localhost:8000/query/distancea?years=${year}&months=${month}`;
     }else { 
-      apiUrl = `http://localhost:8000/query/distancea?years=2024&months=${this.currentMonthNumber}&thing_id=${thing_id}`;
+      apiUrl = `http://localhost:8000/query/distancea?years=${year}&months=${month}&thing_id=${thing_id}`;
     }
 
 
@@ -90,26 +90,26 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     return this.http.get(apiUrl);
   }
 
-  getSpentTimeMonths(thing_id: number) {
+  getSpentTimeMonths(thing_id: number,year: number) {
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/time?years=2024`;
+       apiUrl = `http://localhost:8000/query/time?years=${year}`;
     }else{
-        apiUrl = `http://localhost:8000/query/time?years=2024&thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/time?years=${year}&thing_id=${thing_id}`;
     }
 
     return this.http.get(apiUrl);
   }
 
-  getSpentTimeDays(thing_id: number) {
+  getSpentTimeDays(thing_id: number,year: number,month: number) {
     // const apiUrl = `http://localhost:8000/query/${thing_id}/time?years=2024&months=${this.currentMonthNumber}`;
 
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/time?years=2024&months=${this.currentMonthNumber}`;
+       apiUrl = `http://localhost:8000/query/time?years=${year}&months=${month}`;
     }
     else {
-        apiUrl = `http://localhost:8000/query/time?years=2024&months=${this.currentMonthNumber}&thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/time?years=${year}&months=${month}&thing_id=${thing_id}`;
     }
 
     return this.http.get(apiUrl);
@@ -138,27 +138,27 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     return this.http.get(apiUrl);
   }
 
-  getSpeedMonth(thing_id: number) {
+  getSpeedMonth(thing_id: number,year: number) {
 
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/speed?years=2024`;
+       apiUrl = `http://localhost:8000/query/speed?years=${year}`;
     }
     else {
-        apiUrl = `http://localhost:8000/query/speed?years=2024&thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/speed?years=${year}&thing_id=${thing_id}`;
     }
 
     return this.http.get(apiUrl);
   }
 
-  getSpeedDays(thing_id: number) {
+  getSpeedDays(thing_id: number,year: number,month: number) {
 
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/speed?years=2024&months=${this.currentMonthNumber}`;
+       apiUrl = `http://localhost:8000/query/speed?years=${year}&months=${month}`;
     }
     else {
-        apiUrl = `http://localhost:8000/query/speed?years=2024&months=${this.currentMonthNumber}&thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/speed?years=${year}&months=${month}&thing_id=${thing_id}`;
     }
     return this.http.get(apiUrl);
   }

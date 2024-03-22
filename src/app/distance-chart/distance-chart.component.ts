@@ -80,7 +80,7 @@ export class DistanceChartComponent {
   
 
 
-  updateDashboard(mode:string,thing_id:any) {
+  updateDashboard(mode:string,thing_id:any,year?:number,month?:number) {
 
     if(mode=='yearly') {
 
@@ -108,7 +108,7 @@ export class DistanceChartComponent {
 
     
     }else if(mode=='monthly') {
-      this.dashboardService.getDistanceTravlledMonth(thing_id).subscribe(
+      this.dashboardService.getDistanceTravlledMonth(thing_id,year as number).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -133,7 +133,7 @@ export class DistanceChartComponent {
     
     }
     else if(mode=='daily') {
-      this.dashboardService.getDistanceTravlledDays(thing_id).subscribe(
+      this.dashboardService.getDistanceTravlledDays(thing_id,year as number, month as number).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];

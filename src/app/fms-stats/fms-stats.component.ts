@@ -29,13 +29,53 @@ export class FmsStatsComponent  implements OnInit{
   public searchResults:any = [];
   public thing: any;
   public fleet = 'My fleet';
-  public date = '2024';
+  public date = '';
   public time = 'yearly';
+  public year = 2024;
+
+  public monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
+  public nextYear() {
+    this.year = this.year + 1;
+    this.date = this.year.toString();
+    this.updateDashboard();
+  }
+
+  public prevYear() {
+    this.year = this.year - 1;
+    this.date = this.year.toString();
+    this.updateDashboard();
+  }
+
+  public nextMonth() {
+    this.month = this.month + 1;
+    this.date = this.monthNames[this.month] + ' 2024';
+    this.updateDashboard();
+  }
+
+  public prevMonth() {
+    this.month = this.month - 1;
+    this.date = this.monthNames[this.month] + ' 2024';
+    this.updateDashboard();
+  }
+
+
+
+  public currentDate = new Date();
+    
+  // Extract the month number from the current date (months are zero-based, so January is 0)
+  public currentMonthNumber = this.currentDate.getMonth() ; // Adding 1 to adjust for zero-based indexing
+
+
+  public month =  this.currentMonthNumber;
+
 
   public selectResult(id:number,name:string) {
-    this.updateDashboard();
     // this.search = event;
     this.thing_id = id;
+    this.updateDashboard();
     this.fleet = name;
       this.showMenu = false;
     this.searchResults = [];
@@ -50,6 +90,7 @@ export class FmsStatsComponent  implements OnInit{
     this.dashboardService.search(event.target.value).subscribe((data:any) => {
       
       this.searchResults = data;
+      
     })
   
   }else {
@@ -117,30 +158,47 @@ this.getCars();
 
 
     if(this.time == 'monthly') {
-      this.distanceChartComponent.updateDashboard('monthly',this.thing_id);
+
+      this.date = this.year.toString();
+
+
+
+      this.distanceChartComponent.updateDashboard('monthly',this.thing_id,this.year);
       setTimeout(() => {  
-        this.carUtilizationComponent.updateDashboard('monthly',this.thing_id);
+        this.carUtilizationComponent.updateDashboard('monthly',this.thing_id,this.year);
       }, 100);     
       
       setTimeout(() => {  
-        this.avgMaxSpeedChartComponent.updateDashboard('monthly',this.thing_id);
+        this.avgMaxSpeedChartComponent.updateDashboard('monthly',this.thing_id,this.year);
       }, 150);
 
-      this.date = '2024';
       
     }
 
     if(this.time == 'daily') {
-      this.distanceChartComponent.updateDashboard('daily',this.thing_id);
+
+
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+          let currentDate = new Date();
+    
+          // Extract the month number from the current date (months are zero-based, so January is 0)
+          let currentMonthNumber = currentDate.getMonth() ; // Adding 1 to adjust for zero-based indexing
+    
+          // make the current month in the date var
+          this.date = monthNames[currentMonthNumber] + ' 2024'
+
+
+      this.distanceChartComponent.updateDashboard('daily',this.thing_id,this.year,this.month);
       setTimeout(() => {  
-        this.carUtilizationComponent.updateDashboard('daily',this.thing_id);
+        this.carUtilizationComponent.updateDashboard('daily',this.thing_id,this.year,this.month);
       }, 100);  
       
       setTimeout(() => {  
-        this.avgMaxSpeedChartComponent.updateDashboard('daily',this.thing_id);
+        this.avgMaxSpeedChartComponent.updateDashboard('daily',this.thing_id,this.year,this.month);
       }, 150);
 
-      this.date = 'January 2024';
 
       
     

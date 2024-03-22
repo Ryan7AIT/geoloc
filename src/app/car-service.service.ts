@@ -9,7 +9,7 @@ export class CarServiceService {
   constructor(private http: HttpClient) { }
 
   getThing(thing_id: any) {
-    const apiUrl = `http://localhost:8000/query/${thing_id}`;
+    const apiUrl = `http://localhost:8000/realtime/${thing_id}`;
 
     return this.http.get(apiUrl);
   }

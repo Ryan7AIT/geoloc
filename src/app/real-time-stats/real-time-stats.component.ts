@@ -19,9 +19,17 @@ export class RealTimeStatsComponent {
   constructor(private carService: CarServiceService) {}
 
   public car = []
+  public selectedCarId = {};
 
   ngOnInit(): void {
-    this.getSelectedCar(629);
+
+
+    // excecute this functin every 2 second
+    setInterval(() => {
+      this.getSelectedCar(629);
+    }, 2000);
+
+
   }
 
 
@@ -30,7 +38,6 @@ export class RealTimeStatsComponent {
    showSidebar = false;
 
      addItem(newItem: string) {
-    console.log(newItem);
 
 
     this.showSidebar = !this.showSidebar ;
@@ -40,11 +47,16 @@ export class RealTimeStatsComponent {
 
   // get selected card from api
   getSelectedCar(car: any) {
+    console.log('from getSelectedCar');
+    
     this.selectedCar = car;
 
     this.carService.getThing(car).subscribe((data: any) => {
-      console.log(data);
-      this.car = data;
+      console.log('from iothing');
+
+      this.selectedCarId = data[0];
+      
+      
     } );
 
     

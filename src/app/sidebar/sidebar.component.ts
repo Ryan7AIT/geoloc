@@ -10,9 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SidebarComponent {
 
   ngOnInit(): void {
-    console.log('ghgfshfghfjhsß');
     
-    console.log(this.car);
     
   }
 
@@ -20,7 +18,7 @@ export class SidebarComponent {
   @Output() close = new EventEmitter<void>();
 
   // make a car input
-  @Input() car: any = [];
+  @Input() car: any = {};
 
   isOpen: boolean = true;
 

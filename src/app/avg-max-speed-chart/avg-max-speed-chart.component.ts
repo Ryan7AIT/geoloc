@@ -130,7 +130,7 @@ export class AvgMaxSpeedChartComponent {
 
 
 
-  updateDashboard(mode:string,thing_id:any) {
+  updateDashboard(mode:string,thing_id:any,year?:number,month?:number) {
 
     if(mode=='yearly') {
       this.dashboardService.getSpeed(thing_id).subscribe(
@@ -158,7 +158,7 @@ export class AvgMaxSpeedChartComponent {
   
     
     }else if(mode=='monthly') {
-      this.dashboardService.getSpeedMonth(thing_id).subscribe(
+      this.dashboardService.getSpeedMonth(thing_id,year as number).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -187,7 +187,7 @@ export class AvgMaxSpeedChartComponent {
     
     }
     else if(mode=='daily') {
-      this.dashboardService.getSpeedDays(thing_id).subscribe(
+      this.dashboardService.getSpeedDays(thing_id, year as number, month as number).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
