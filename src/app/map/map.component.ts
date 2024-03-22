@@ -16,6 +16,7 @@ export class MapComponent implements OnInit {
   private map!: L.Map;
   markers: L.Marker[] = [];
   carIcons: L.Icon[] = []; // Array to store car icons
+  public cars: any[] = [];
 
   @Output() newItemEvent: any = new EventEmitter<string>();
 
@@ -25,42 +26,16 @@ export class MapComponent implements OnInit {
       L.latLng(36.718939, 3.181767),
       L.latLng(36.718949, 3.181777),
       L.latLng(36.718959, 3.181787)
-    ],
-    [
-      L.latLng(36.718944, 3.181772),
-      L.latLng(36.718954, 3.181782),
-      L.latLng(36.718964, 3.181792)
-    ],
-    [
-      L.latLng(36.718941, 3.181769),
-      L.latLng(36.718951, 3.181779),
-      L.latLng(36.718961, 3.181789)
-    ],
-    [
-      L.latLng(36.718946, 3.181774),
-      L.latLng(36.718956, 3.181784),
-      L.latLng(36.718966, 3.181794)
-    ],
-    [
-      L.latLng(36.718943, 3.181771),
-      L.latLng(36.718953, 3.181781),
-      L.latLng(36.718963, 3.181791)
     ]
-  ];// Array to store positions for each car
-
-  
-  // ngAfterViewInit(): void {
-  //   this.initializeMap();
-  //   this.addMarkers();
-  //   this.centerMap();
-  //   this.updateCarPositions(); // Call the new method to update car positions
-  // }
+  ];
 
   ngOnInit(): void {
     this.initializeMap();
     this.addMarkers();
     // this.centerMap();
     this.updateCarPositions();
+
+    this.cars = [['car1',629]]
   }
 
   private initializeMap() {
@@ -71,6 +46,8 @@ export class MapComponent implements OnInit {
 
   private addMarkers() {
 
+
+
     let carIcon = L.icon({
       iconUrl: './../../assets/gps-navigation.png', // URL to your car icon image
       iconSize: [38, 38], // size of the icon
@@ -78,32 +55,28 @@ export class MapComponent implements OnInit {
     });
     const markerOptions = {
       title: 'Marker',
-      icon: carIcon // Assuming carIcon is already defined
+      icon: carIcon ,
+      draggable: true,
+      
 
     };
 
-    // Generate multiple car icons and add markers to the map
-    for (let i = 0; i < 5; i++) {
-      const carIcon = L.icon({
-        iconUrl: './../../assets/gps-navigation.png', // URL to your car icon image
-        iconSize: [38, 38],
-        iconAnchor: [19, 19],
-      });
-
-      this.carIcons.push(carIcon);
+ 
 
       const marker = L.marker(this.generateRandomPosition(), markerOptions)
         .addTo(this.map)
         .on('click', this.onMarker.bind(this));
       this.markers.push(marker);
-    }
+    // }
   }
 
   private onMarker(event: any) {
     const marker = event.target;
     const markerId = this.markers.indexOf(marker);
-    console.log('Marker ID:', markerId);
-    this.newItemEvent.emit(`Marker ID: ${markerId}`);
+
+
+    
+    this.newItemEvent.emit(`Marker ID: ${this.cars[markerId][1]}`);
   }
 
   private centerMap() {

@@ -4,6 +4,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { CommonModule, NgIf } from '@angular/common';
 import { ContainerComponent } from '../container/container.component';
 
+import { CarServiceService } from '../car-service.service';
 @Component({
   selector: 'app-real-time-stats',
   standalone: true,
@@ -11,7 +12,20 @@ import { ContainerComponent } from '../container/container.component';
   templateUrl: './real-time-stats.component.html',
   styleUrl: './real-time-stats.component.css'
 })
+
+
 export class RealTimeStatsComponent {
+
+  constructor(private carService: CarServiceService) {}
+
+  public car = []
+
+  ngOnInit(): void {
+    this.getSelectedCar(629);
+  }
+
+
+  public selectedCar: any;
 
    showSidebar = false;
 
@@ -22,6 +36,22 @@ export class RealTimeStatsComponent {
     this.showSidebar = !this.showSidebar ;
     
     
+  }
+
+  // get selected card from api
+  getSelectedCar(car: any) {
+    this.selectedCar = car;
+
+    this.carService.getThing(car).subscribe((data: any) => {
+      console.log(data);
+      this.car = data;
+    } );
+
+    
+  }
+
+  onClose() {
+    this.showSidebar = false;
   }
 
 }

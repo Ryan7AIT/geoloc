@@ -6,7 +6,9 @@
     <!-- <app-map ></app-map> -->
 
     <div *ngIf="showSidebar" class="absolute top-0 left-0 z-50 w-1/4 h-full transition ease-in-out delay-150 bg-gray-100 side">
-        <app-sidebar ></app-sidebar>
+        <app-sidebar [car]="car" (close)="onClose()" ></app-sidebar>
     </div>
 
+
 </div>
+
