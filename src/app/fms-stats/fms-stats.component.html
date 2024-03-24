@@ -72,6 +72,40 @@
   </div>
 </div>
 
+
+
+
+
+<div class="flex justify-between mb-4 space-x-3 fline">
+  <div class="w-1/4">
+    <div class="p-3 text-white bg-blue-500 rounded-lg">
+      <h2 class="mb-2 text-xl font-semibold text-center">Tour number</h2>
+      <p class="text-lg text-center">3325</p>
+    </div>
+  </div>
+  <div class="w-1/4">
+    <div class="p-3 text-white bg-green-500 rounded-lg">
+      <h2 class="mb-2 text-xl font-semibold text-center">Number of cars</h2>
+      <p class="text-lg text-center">635</p>
+    </div>
+  </div>
+  <div class="w-1/4">
+    <div class="p-3 text-white bg-yellow-500 rounded-lg">
+      <h2 class="mb-2 text-xl font-semibold text-center">Number of alert</h2>
+      <p class="text-lg text-center">56</p>
+    </div>
+  </div>
+  <div class="w-1/4">
+    <div class="p-3 text-white bg-red-500 rounded-lg">
+      <h2 class="mb-2 text-xl font-semibold text-center">active cars</h2>
+      <p class="text-lg text-center">568</p>
+    </div>
+  </div>
+</div>
+
+
+
+
 <div class="flex justify-between space-x-3 fline">
   <div class="w-1/2 graphe">
     <!-- Graph 1 -->
@@ -91,12 +125,18 @@
   <div class="w-1/2 graphe">
             <!-- Graph 4 -->
             <!-- <app-car-usage></app-car-usage> -->
-          </div>
-          </div>
+            <app-fuel-chart></app-fuel-chart>
+    </div>
+  </div>
 
-          </div>
+  <div class="w-full chart h-72 ">
+    <!-- Graph 5 -->
+    <app-alert-chart></app-alert-chart>
+  </div>
 
-          <!-- </div> -->
+
+  </div>
+
 
   
   

@@ -177,6 +177,13 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     return this.http.get(apiUrl);
   }
 
+
+  getAlerts(thing_id: number) {
+    const apiUrl = `http://localhost:8000/query/alerts`;
+
+    return this.http.get(apiUrl);
+  }
+
   
 }
 

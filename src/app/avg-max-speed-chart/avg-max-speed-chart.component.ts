@@ -105,6 +105,7 @@ export class AvgMaxSpeedChartComponent {
     this.dashboardService.getSpeed(thing_id).subscribe(
       (data:any) => {
         // Process the data returned from the API
+        
 
         
         this.xAxisLabels = data[0];

@@ -8,12 +8,13 @@ import { CarUtilizationComponent } from '../car-utilization/car-utilization.comp
 import { AvgMaxSpeedChartComponent } from '../avg-max-speed-chart/avg-max-speed-chart.component';
 import { CommonModule, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { AlertChartComponent } from '../alert-chart/alert-chart.component';
+import { FuelChartComponent } from '../fuel-chart/fuel-chart.component';
 
 @Component({
   selector: 'app-fms-stats',
   standalone: true,
-  imports: [LineChartComponent,MapComponent,DistanceChartComponent,CarUtilizationComponent,AvgMaxSpeedChartComponent,CommonModule,NgIf,FormsModule],
+  imports: [LineChartComponent,MapComponent,DistanceChartComponent,CarUtilizationComponent,AvgMaxSpeedChartComponent,CommonModule,NgIf,FormsModule,AlertChartComponent,FuelChartComponent],
   templateUrl: './fms-stats.component.html',
   styleUrl: './fms-stats.component.css'
 })
