@@ -13,5 +13,11 @@ export class CarServiceService {
 
     return this.http.get(apiUrl);
   }
+
+  getRealtimeinfo(car: any) {
+    const apiUrl = `http://localhost:8000/realtime/${car}`;
+
+    return this.http.get(apiUrl);
+  }
 }
 

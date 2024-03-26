@@ -1,43 +1,79 @@
 <div class="container mx-auto">
     <!-- First row: Car information -->
-    <div class="flex items-center justify-between py-4">
+    <div class="flex items-center justify-between p-4">
         <div class="flex items-center">
-            <img src="car-image.jpg" alt="Car Image" class="w-16 h-16 mr-4">
+            <!-- <img src="car-image.jpg" alt="Car Image" class="w-16 h-16 mr-4"> -->
             <div>
                 <h2 class="text-xl font-bold">Car Model</h2>
                 <p class="text-gray-500">Car Description</p>
             </div>
+
+  
         </div>
         <div>
-            <button class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600">Book Now</button>
+            <!-- <button class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600">Book Now</button> -->
+        </div>
+    </div>
+
+
+    <div class="flex justify-start p-4 space-x-4 text-base realtimeinfo">
+        <div>
+            <p class="font-semibold">Latitude: <span class="text-gray-500">123</span></p>
+            <p class="font-semibold">Longitude: <span class="text-gray-500">234</span></p>
+        </div>
+        <div>
+            <p class="font-semibold">Speed: <span class="text-gray-500">50 km/h</span></p>
+            <p class="font-semibold">Position: <span class="text-gray-500">North</span></p>
         </div>
     </div>
 
     <!-- Second row: Cards -->
-    <div class="grid grid-cols-3 gap-4">
-        <div class="p-4 bg-white rounded shadow">
-            <h3 class="text-lg font-bold">Card 1</h3>
-            <p>Card 1 content</p>
+    <div class="grid grid-cols-3 gap-4 mx-10">
+        <div class="p-4 my-2 text-center bg-white rounded shadow">
+            <h3 class="pb-4 font-semibold text-gray-600">Fuel level</h3>
+
+
+            <div class="flex items-center justify-center mx-auto mb-4 text-center bg-gray-300 rounded-full w-28 h-28">
+                <div class="relative w-28 h-28">
+                    <div class="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full"></div>
+                    <div class="absolute top-0 left-0 w-full h-full rounded-full" [ngStyle]="getFuelLevelStyle()"></div>
+                    <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full text-lg font-bold">
+                      {{fuelLevel}}
+                    </div>
+                  </div>
+              </div>
         </div>
-        <div class="p-4 bg-white rounded shadow">
-            <h3 class="text-lg font-bold">Card 2</h3>
-            <p>Card 2 content</p>
+
+        <div class="p-4 my-2 text-center bg-white rounded shadow">
+            <h3 class="pb-4 font-semibold text-gray-600">Battery</h3>
+
+
+            <div class="flex items-center justify-center mx-auto mb-4 text-center bg-gray-300 rounded-full w-28 h-28">
+                <div class="relative w-28 h-28">
+                    <div class="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full"></div>
+                    <div class="absolute top-0 left-0 w-full h-full rounded-full" [ngStyle]="getFuelLevelStyle()"></div>
+                    <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full text-lg font-bold" [ngClass]="{'text-orange-500': fuelLevel > 10}">
+                      {{fuelLevel}}
+                    </div>
+                  </div>
+              </div>
         </div>
-        <div class="p-4 bg-white rounded shadow">
-            <h3 class="text-lg font-bold">Card 3</h3>
-            <p>Card 3 content</p>
-        </div>
+
+
+        <div class="p-4 my-2 text-center bg-white rounded shadow">
+            <h3 class="pb-4 font-semibold text-gray-600">Speed</h3>
+
+
+            <div class="flex items-center justify-center mx-auto mb-4 text-center bg-gray-300 rounded-full w-28 h-28">
+                <div class="relative w-28 h-28">
+                    <div class="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full"></div>
+                    <div class="absolute top-0 left-0 w-full h-full rounded-full" [ngStyle]="getFuelLevelStyle()"></div>
+                    <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full text-lg font-bold">
+                      {{car.speed}}
+                    </div>
+                  </div>
+              </div>
     </div>
 
-    <!-- Third row: Graphs -->
-    <div class="grid grid-cols-2 gap-4 mt-4">
-        <div class="p-4 bg-white rounded shadow">
-            <h3 class="text-lg font-bold">Graph 1</h3>
-            <p>Graph 1 content</p>
-        </div>
-        <div class="p-4 bg-white rounded shadow">
-            <h3 class="text-lg font-bold">Graph 2</h3>
-            <p>Graph 2 content</p>
-        </div>
-    </div>
+
 </div>

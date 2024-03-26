@@ -12,9 +12,8 @@ import { PredictionComponent } from './prediction/prediction.component';
 const routes: Routes = [
   { path: 'realtime', component: RealTimeStatsComponent },
   { path: 'dashboard', component: FmsStatsComponent },
-  { path: 'prediction', component: PredictionComponent },
+  { path: 'prediction/:thing_id', component: PredictionComponent },
   { path: '', redirectTo: '/realtime', pathMatch: 'full' }
-
 ];
 
 export const appConfig: ApplicationConfig = {
