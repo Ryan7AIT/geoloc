@@ -19,5 +19,11 @@ export class CarServiceService {
 
     return this.http.get(apiUrl);
   }
+
+  getJourney(car: any) {
+    const apiUrl = `http://localhost:8000/journey/?thing=${car}`;
+
+    return this.http.get(apiUrl);
+  }
 }
 

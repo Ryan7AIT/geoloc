@@ -40,9 +40,9 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     let apiUrl: string;
 
     if (thing_id == 0) {
-      apiUrl = `http://localhost:8000/query/distancea`;
+      apiUrl = `http://localhost:8000/query/distancea2`;
     } else {
-      apiUrl = `http://localhost:8000/query/distancea?thing_id=${thing_id}`;
+      apiUrl = `http://localhost:8000/query/distancea2?thing_id=${thing_id}`;
     }
 
     return this.http.get(apiUrl);
@@ -55,9 +55,9 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     let apiUrl: string;
 
     if (thing_id == 0) {
-      apiUrl = `http://localhost:8000/query/distancea?years=${year}`;
+      apiUrl = `http://localhost:8000/query/distancea2?years=${year}`;
     } else {
-      apiUrl = `http://localhost:8000/query/distancea?years=${year}&thing_id=${thing_id}`;
+      apiUrl = `http://localhost:8000/query/distancea2?years=${year}&thing_id=${thing_id}`;
     }
 
     return this.http.get(apiUrl);
@@ -69,9 +69,9 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     let apiUrl: string;
 
     if (thing_id == 0) {
-      apiUrl = `http://localhost:8000/query/distancea?years=${year}&months=${month}`;
+      apiUrl = `http://localhost:8000/query/distancea2?months=${month}&years=${year}`;
     }else { 
-      apiUrl = `http://localhost:8000/query/distancea?years=${year}&months=${month}&thing_id=${thing_id}`;
+      apiUrl = `http://localhost:8000/query/distancea2?months=${month}&years=${year}&thing_id=${thing_id}`;
     }
 
 
@@ -82,9 +82,9 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
 
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/time`;
+       apiUrl = `http://localhost:8000/query/time2`;
     }else{
-        apiUrl = `http://localhost:8000/query/time?thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/time2?thing_id=${thing_id}`;
     }
 
     return this.http.get(apiUrl);
@@ -93,9 +93,9 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
   getSpentTimeMonths(thing_id: number,year: number) {
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/time?years=${year}`;
+       apiUrl = `http://localhost:8000/query/time2?years=${year}`;
     }else{
-        apiUrl = `http://localhost:8000/query/time?years=${year}&thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/time2?years=${year}&thing_id=${thing_id}`;
     }
 
     return this.http.get(apiUrl);
@@ -106,7 +106,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
 
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/time?years=${year}&months=${month}`;
+       apiUrl = `http://localhost:8000/query/time2?years=${year}&months=${month}`;
     }
     else {
         apiUrl = `http://localhost:8000/query/time?years=${year}&months=${month}&thing_id=${thing_id}`;
@@ -119,10 +119,10 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
 
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/speed`;
+       apiUrl = `http://localhost:8000/query/speed2`;
     }
     else {
-        apiUrl = `http://localhost:8000/query/speed?thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/speed2?thing_id=${thing_id}`;
     }
     return this.http.get(apiUrl);
   }
@@ -130,10 +130,10 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
   getSpeedYears(thing_id: number) {
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/speed`;
+       apiUrl = `http://localhost:8000/query/speed2`;
     }
     else {
-        apiUrl = `http://localhost:8000/query/speed?thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/speed2?thing_id=${thing_id}`;
     }
     return this.http.get(apiUrl);
   }
@@ -142,10 +142,10 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
 
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/speed?years=${year}`;
+       apiUrl = `http://localhost:8000/query/speed2?years=${year}`;
     }
     else {
-        apiUrl = `http://localhost:8000/query/speed?years=${year}&thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/speed2?years=${year}&thing_id=${thing_id}`;
     }
 
     return this.http.get(apiUrl);
@@ -155,10 +155,10 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
 
     let apiUrl: string;
     if(thing_id == 0) {
-       apiUrl = `http://localhost:8000/query/speed?years=${year}&months=${month}`;
+       apiUrl = `http://localhost:8000/query/speed2?years=${year}&months=${month}`;
     }
     else {
-        apiUrl = `http://localhost:8000/query/speed?years=${year}&months=${month}&thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/speed2?years=${year}&months=${month}&thing_id=${thing_id}`;
     }
     return this.http.get(apiUrl);
   }
