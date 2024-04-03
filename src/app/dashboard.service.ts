@@ -36,7 +36,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     return this.http.get(apiUrl);
   }
 
-  getDistanceTravlledYears(thing_id: any) {
+  getDistanceTravlledYears(thing_id: any,group_id?:any,type_id?:any) {
     let apiUrl: string;
 
     if (thing_id == 0) {
@@ -45,13 +45,22 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/distancea2?thing_id=${thing_id}`;
     }
 
+    if (group_id) {
+      apiUrl = `http://localhost:8000/query/distancea2?group_id=${group_id}`;
+    }
+
+    if (type_id) {
+      apiUrl = `http://localhost:8000/query/distancea2?type_id=${type_id}`;
+    }
+
+
     return this.http.get(apiUrl);
   }
 
 
   //  http://localhost:8000/query/629/distancea?months=1
 
-  getDistanceTravlledMonth(thing_id: any,year: number) {
+  getDistanceTravlledMonth(thing_id: any,year: number,group_id?:any,type_id?:any) {
     let apiUrl: string;
 
     if (thing_id == 0) {
@@ -60,11 +69,19 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/distancea2?years=${year}&thing_id=${thing_id}`;
     }
 
+    if (group_id) {
+      apiUrl = `http://localhost:8000/query/distancea2?years=${year}&group_id=${group_id}`;
+    }
+
+    if (type_id) {
+      apiUrl = `http://localhost:8000/query/distancea2?years=${year}&type_id=${type_id}`;
+    }
+
     return this.http.get(apiUrl);
   }
 
   // http://localhost:8000/query/629/distancea?years=1&months=1
-  getDistanceTravlledDays(thing_id: any,year: number,month: number) {
+  getDistanceTravlledDays(thing_id: any,year: number,month: number,group_id?:any,type_id?:any) {
 
     let apiUrl: string;
 
@@ -74,11 +91,19 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/distancea2?months=${month}&years=${year}&thing_id=${thing_id}`;
     }
 
+    if (group_id) {
+      apiUrl = `http://localhost:8000/query/distancea2?months=${month}&years=${year}&group_id=${group_id}`;
+    }
+
+    if (type_id) {
+      apiUrl = `http://localhost:8000/query/distancea2?months=${month}&years=${year}&type_id=${type_id}`;
+    }
+
 
     return this.http.get(apiUrl);
   }
 
-  getSpentTime(thing_id: number) {
+  getSpentTime(thing_id: number,group_id?:any,type_id?:any) {
 
     let apiUrl: string;
     if(thing_id == 0) {
@@ -87,10 +112,18 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
         apiUrl = `http://localhost:8000/query/time2?thing_id=${thing_id}`;
     }
 
+    if(group_id) {
+      apiUrl = `http://localhost:8000/query/time2?group_id=${group_id}`;
+    }
+
+    if(type_id) {
+      apiUrl = `http://localhost:8000/query/time2?type_id=${type_id}`;
+    }
+
     return this.http.get(apiUrl);
   }
 
-  getSpentTimeMonths(thing_id: number,year: number) {
+  getSpentTimeMonths(thing_id: number,year: number,group_id?:any,type_id?:any) {
     let apiUrl: string;
     if(thing_id == 0) {
        apiUrl = `http://localhost:8000/query/time2?years=${year}`;
@@ -98,10 +131,18 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
         apiUrl = `http://localhost:8000/query/time2?years=${year}&thing_id=${thing_id}`;
     }
 
+    if(group_id) {
+      apiUrl = `http://localhost:8000/query/time2?years=${year}&group_id=${group_id}`;
+    }
+
+    if(type_id) {
+      apiUrl = `http://localhost:8000/query/time2?years=${year}&type_id=${type_id}`;
+    }
+
     return this.http.get(apiUrl);
   }
 
-  getSpentTimeDays(thing_id: number,year: number,month: number) {
+  getSpentTimeDays(thing_id: number,year: number,month: number,group_id?:any,type_id?:any) {
     // const apiUrl = `http://localhost:8000/query/${thing_id}/time?years=2024&months=${this.currentMonthNumber}`;
 
     let apiUrl: string;
@@ -110,6 +151,14 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     }
     else {
         apiUrl = `http://localhost:8000/query/time?years=${year}&months=${month}&thing_id=${thing_id}`;
+    }
+
+    if(group_id) {
+      apiUrl = `http://localhost:8000/query/time2?years=${year}&months=${month}&group_id=${group_id}`;
+    }
+
+    if(type_id) {
+      apiUrl = `http://localhost:8000/query/time2?years=${year}&months=${month}&type_id=${type_id}`;
     }
 
     return this.http.get(apiUrl);
@@ -127,7 +176,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     return this.http.get(apiUrl);
   }
 
-  getSpeedYears(thing_id: number) {
+  getSpeedYears(thing_id: number,group_id?:any,type_id?:any) {
     let apiUrl: string;
     if(thing_id == 0) {
        apiUrl = `http://localhost:8000/query/speed2`;
@@ -135,10 +184,18 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     else {
         apiUrl = `http://localhost:8000/query/speed2?thing_id=${thing_id}`;
     }
+
+    if(group_id) {
+      apiUrl = `http://localhost:8000/query/speed2?group_id=${group_id}`;
+    }
+
+    if(type_id) {
+      apiUrl = `http://localhost:8000/query/speed2?type_id=${type_id}`;
+    }
     return this.http.get(apiUrl);
   }
 
-  getSpeedMonth(thing_id: number,year: number) {
+  getSpeedMonth(thing_id: number,year: number,group_id?:any,type_id?:any) {
 
     let apiUrl: string;
     if(thing_id == 0) {
@@ -148,10 +205,18 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
         apiUrl = `http://localhost:8000/query/speed2?years=${year}&thing_id=${thing_id}`;
     }
 
+    if(group_id) {
+      apiUrl = `http://localhost:8000/query/speed2?years=${year}&group_id=${group_id}`;
+    }
+
+    if(type_id) {
+      apiUrl = `http://localhost:8000/query/speed2?years=${year}&type_id=${type_id}`;
+    }
+
     return this.http.get(apiUrl);
   }
 
-  getSpeedDays(thing_id: number,year: number,month: number) {
+  getSpeedDays(thing_id: number,year: number,month: number,group_id?:any,type_id?:any) {
 
     let apiUrl: string;
     if(thing_id == 0) {
@@ -159,6 +224,14 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     }
     else {
         apiUrl = `http://localhost:8000/query/speed2?years=${year}&months=${month}&thing_id=${thing_id}`;
+    }
+
+    if(group_id) {
+      apiUrl = `http://localhost:8000/query/speed2?years=${year}&months=${month}&group_id=${group_id}`;
+    }
+
+    if(type_id) {
+      apiUrl = `http://localhost:8000/query/speed2?years=${year}&months=${month}&type_id=${type_id}`;
     }
     return this.http.get(apiUrl);
   }
@@ -178,7 +251,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
   }
 
 
-  getAlerts(thing_id: number) {
+  getAlerts(thing_id: number,group_id?:any,type_id?:any) {
     const apiUrl = `http://localhost:8000/query/alerts`;
 
     return this.http.get(apiUrl);

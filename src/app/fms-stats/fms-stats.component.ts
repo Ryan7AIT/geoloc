@@ -119,7 +119,7 @@ public reset(){
   public cars:any = [];
   ngOnInit() {
    
-this.getCars();
+// this.getCars();
   }
 
   public showMenu = false;
@@ -141,14 +141,14 @@ this.getCars();
 
 
     if( this.time== 'yearly') {
-      this.distanceChartComponent.updateDashboard('yearly',this.thing_id);
+      // this.distanceChartComponent.updateDashboard('yearly',this.thing_id);
       // set 0.5 timeout
       setTimeout(() => {  
-        this.carUtilizationComponent.updateDashboard('yearly',this.thing_id);
+        // this.carUtilizationComponent.updateDashboard('yearly',this.thing_id);
       }, 100);
 
       setTimeout(() => {  
-        this.avgMaxSpeedChartComponent.updateDashboard('yearly',this.thing_id);
+        // this.avgMaxSpeedChartComponent.updateDashboard('yearly',this.thing_id);
       }, 150);
 
 
@@ -164,13 +164,13 @@ this.getCars();
 
 
 
-      this.distanceChartComponent.updateDashboard('monthly',this.thing_id,this.year);
+      // this.distanceChartComponent.updateDashboard('monthly',this.thing_id,this.year);
       setTimeout(() => {  
-        this.carUtilizationComponent.updateDashboard('monthly',this.thing_id,this.year);
+        // this.carUtilizationComponent.updateDashboard('monthly',this.thing_id,this.year);
       }, 100);     
       
       setTimeout(() => {  
-        this.avgMaxSpeedChartComponent.updateDashboard('monthly',this.thing_id,this.year);
+        // this.avgMaxSpeedChartComponent.updateDashboard('monthly',this.thing_id,this.year);
       }, 150);
 
       
@@ -197,7 +197,7 @@ this.getCars();
       }, 100);  
       
       setTimeout(() => {  
-        this.avgMaxSpeedChartComponent.updateDashboard('daily',this.thing_id,this.year,this.month);
+        // this.avgMaxSpeedChartComponent.updateDashboard('daily',this.thing_id,this.year,this.month);
       }, 150);
 
 

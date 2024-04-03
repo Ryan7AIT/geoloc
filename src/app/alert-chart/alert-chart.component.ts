@@ -45,7 +45,7 @@ export class AlertChartComponent {
           {
             label: 'number of alers',
             data: this.yAxisData,
-            backgroundColor: 'blue',
+            backgroundColor: 'rgba(4, 120, 228, 0.871)',
           },
 
         ]

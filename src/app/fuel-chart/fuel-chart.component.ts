@@ -42,7 +42,7 @@ export class FuelChartComponent {
           {
             label: 'Fule Consumption',
             data: this.yAxisData,
-            backgroundColor: 'blue',
+            backgroundColor: 'rgba(4, 120, 228, 0.871)',
           },
    
         ]

@@ -67,7 +67,7 @@ export class DistanceChartComponent {
           {
             label: "Distance Traveled",
             data: this.yAxisData,
-            backgroundColor: 'blue'
+            backgroundColor: 'rgba(4, 120, 228, 0.871)'
           }
         ]
       },
@@ -80,11 +80,11 @@ export class DistanceChartComponent {
   
 
 
-  updateDashboard(mode:string,thing_id:any,year?:number,month?:number) {
+  updateDashboard(mode:string,thing_id:any,group_id:any,type_id:any,year?:number,month?:number) {
 
     if(mode=='yearly') {
 
-      this.dashboardService.getDistanceTravlledYears(thing_id).subscribe(
+      this.dashboardService.getDistanceTravlledYears(thing_id,group_id,type_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -108,7 +108,7 @@ export class DistanceChartComponent {
 
     
     }else if(mode=='monthly') {
-      this.dashboardService.getDistanceTravlledMonth(thing_id,year as number).subscribe(
+      this.dashboardService.getDistanceTravlledMonth(thing_id,group_id,type_id,year as number).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -133,7 +133,7 @@ export class DistanceChartComponent {
     
     }
     else if(mode=='daily') {
-      this.dashboardService.getDistanceTravlledDays(thing_id,year as number, month as number).subscribe(
+      this.dashboardService.getDistanceTravlledDays(thing_id,year as number, month as number,group_id,type_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
