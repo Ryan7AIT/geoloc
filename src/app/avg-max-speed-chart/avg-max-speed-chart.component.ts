@@ -47,7 +47,7 @@ export class AvgMaxSpeedChartComponent {
           {
             label: 'Average Speed',
             data: this.yAxisData,
-            borderColor: 'blue',
+            borderColor: 'rgba(4, 120, 228, 0.871)',
             fill: false
           },
           {
@@ -131,10 +131,10 @@ export class AvgMaxSpeedChartComponent {
 
 
 
-  updateDashboard(mode:string,thing_id:any,year?:number,month?:number) {
+  updateDashboard(mode:string,thing_id:any,group_id:any,type_id:any,year?:number,month?:number) {
 
     if(mode=='yearly') {
-      this.dashboardService.getSpeed(thing_id).subscribe(
+      this.dashboardService.getSpeedYears(thing_id,group_id,type_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -159,7 +159,7 @@ export class AvgMaxSpeedChartComponent {
   
     
     }else if(mode=='monthly') {
-      this.dashboardService.getSpeedMonth(thing_id,year as number).subscribe(
+      this.dashboardService.getSpeedMonth(thing_id,group_id,type_id,year as number).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -188,7 +188,7 @@ export class AvgMaxSpeedChartComponent {
     
     }
     else if(mode=='daily') {
-      this.dashboardService.getSpeedDays(thing_id, year as number, month as number).subscribe(
+      this.dashboardService.getSpeedDays(thing_id,year as number, month as number,group_id,type_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];

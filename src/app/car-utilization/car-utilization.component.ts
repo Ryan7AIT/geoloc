@@ -21,7 +21,8 @@ export class CarUtilizationComponent {
 
   ngOnInit(): void {
     this.createChart();
-    setTimeout(() => {  this.getDataFromApi(this.thing_id); }, 100);
+    this.getDataFromApi(this.thing_id); 
+    // setTimeout(() => {  this.getDataFromApi(this.thing_id); }, 100);
   }
 
 
@@ -42,12 +43,12 @@ export class CarUtilizationComponent {
           {
             label: 'Idle Time',
             data: this.yAxisData,
-            backgroundColor: 'blue',
+            backgroundColor: 'rgba(4, 120, 228, 0.871)',
           },
           {
             label: 'Active Time',
             data: this.yAxisData2,
-            backgroundColor: 'red',
+            backgroundColor: 'rgb(244, 66, 66)',
           }
         ]
       },
@@ -93,10 +94,10 @@ export class CarUtilizationComponent {
   }
 
 
-  updateDashboard(mode:string,thing_id:any,year?:number,month?:number) {
+  updateDashboard(mode:string,thing_id:any,group_id:any,type_id:any,year?:number,month?:number) {
 
     if(mode=='yearly') {
-      this.dashboardService.getSpentTime(thing_id).subscribe(
+      this.dashboardService.getSpentTime(thing_id,group_id,type_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -119,7 +120,7 @@ export class CarUtilizationComponent {
 
     
     }else if(mode=='monthly') {
-      this.dashboardService.getSpentTimeMonths(thing_id,year as number).subscribe(
+      this.dashboardService.getSpentTimeMonths(thing_id,group_id,type_id,year as number).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
@@ -146,7 +147,7 @@ export class CarUtilizationComponent {
     
     }
     else if(mode=='daily') {
-      this.dashboardService.getSpentTimeDays(thing_id, year as number, month as number).subscribe(
+      this.dashboardService.getSpentTimeDays(thing_id,year as number, month as number,group_id,type_id).subscribe(
         (data:any) => {
           // Process the data returned from the API
           this.xAxisLabels = data[0];
