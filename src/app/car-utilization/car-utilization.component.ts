@@ -21,7 +21,8 @@ export class CarUtilizationComponent {
 
   ngOnInit(): void {
     this.createChart();
-    setTimeout(() => {  this.getDataFromApi(this.thing_id); }, 100);
+    this.getDataFromApi(this.thing_id); 
+    // setTimeout(() => {  this.getDataFromApi(this.thing_id); }, 100);
   }
 
 

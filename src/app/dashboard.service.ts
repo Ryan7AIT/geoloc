@@ -237,6 +237,65 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
   }
 
 
+  getFuelConsumptionYears(thing_id: number,group_id?:any,type_id?:any) {
+      
+      let apiUrl: string;
+      if(thing_id == 0) {
+        apiUrl = `http://localhost:8000/query/fuel2`;
+      }
+      else {
+          apiUrl = `http://localhost:8000/query/fuel2?thing_id=${thing_id}`;
+      }
+
+      if(group_id) {
+        apiUrl = `http://localhost:8000/query/fuel2?group_id=${group_id}`;
+      }
+      
+      if(type_id) {
+        apiUrl = `http://localhost:8000/query/fuel2?type_id=${type_id}`;
+      }
+      return this.http.get(apiUrl);
+    }
+
+    getFuelConsumptionMonths(thing_id: number,year: number,group_id?:any,type_id?:any) {
+      let apiUrl: string;
+      if(thing_id == 0) {
+        apiUrl = `http://localhost:8000/query/fuel2?years=${year}`;
+      }
+      else {
+          apiUrl = `http://localhost:8000/query/fuel2?years=${year}&thing_id=${thing_id}`;
+      }
+
+      if(group_id) {
+        apiUrl = `http://localhost:8000/query/fuel2?years=${year}&group_id=${group_id}`;
+      }
+
+      if(type_id) {
+        apiUrl = `http://localhost:8000/query/fuel2?years=${year}&type_id=${type_id}`;
+      }
+      return this.http.get(apiUrl);
+    }
+
+    getFuelConsumptionDays(thing_id: number,year: number,month: number,group_id?:any,type_id?:any) {
+      let apiUrl: string;
+      if(thing_id == 0) {
+        apiUrl = `http://localhost:8000/query/fuel2?years=${year}&months=${month}`;
+      }
+      else {
+          apiUrl = `http://localhost:8000/query/fuel2?years=${year}&months=${month}&thing_id=${thing_id}`;
+      }
+
+      if(group_id) {
+        apiUrl = `http://localhost:8000/query/fuel2?years=${year}&months=${month}&group_id=${group_id}`;
+      }
+
+      if(type_id) {
+        apiUrl = `http://localhost:8000/query/fuel2?years=${year}&months=${month}&type_id=${type_id}`;
+      }
+      return this.http.get(apiUrl);
+    }
+
+
 
   getCars() {
     const apiUrl = 'http://localhost:8000/get_things'
@@ -256,6 +315,71 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
 
     return this.http.get(apiUrl);
   }
+
+
+  getNumOfAlrersSimpleYear(thing_id: number,group_id?:any,type_id?:any) {
+    const apiUrl = `http://localhost:8000/query/alert2`;
+
+    return this.http.get(apiUrl);
+  }
+
+  getNumOfAlrersSimpleMonth(thing_id: number,year: number,group_id?:any,type_id?:any) {
+    const apiUrl = `http://localhost:8000/query/alert2?years=${year}`;
+
+    return this.http.get(apiUrl);
+  }
+
+  getNumOfAlrersSimpleDay(thing_id: number,year: number,month: number,group_id?:any,type_id?:any) {
+    console.log('hhhhhhhhh', year);
+    console.log('hhhhhhhhh', month);
+
+    
+    const apiUrl = `http://localhost:8000/query/alert2?years=${year}&months=${month}`;
+
+    return this.http.get(apiUrl);
+  }
+
+
+  getNumOfAlertsMeduimYear(thing_id: number,group_id?:any,type_id?:any) {
+    const apiUrl = `http://localhost:8000/query/alert2/t2`;
+
+    return this.http.get(apiUrl);
+  }
+
+  getNumOfAlertsMeduimMonth(thing_id: number,year: number,group_id?:any,type_id?:any) {
+    const apiUrl = `http://localhost:8000/query/alert2/t2?years=${year}`;
+
+    return this.http.get(apiUrl);
+  }
+
+  getNumOfAlertsMeduimDay(thing_id: number,year: number,month: number,group_id?:any,type_id?:any) {
+    const apiUrl = `http://localhost:8000/query/alert2/t2?years=${year}&months=${month}`;
+
+    return this.http.get(apiUrl);
+  }
+
+  getNumOfAlertsHighYear(thing_id: number,group_id?:any,type_id?:any) {
+    const apiUrl = `http://localhost:8000/query/alert2/t3`;
+
+    return this.http.get(apiUrl);
+  }
+
+  getNumOfAlertsHighMonth(thing_id: number,year: number,group_id?:any,type_id?:any) {
+    const apiUrl = `http://localhost:8000/query/alert2/t3?years=${year}`;
+
+    return this.http.get(apiUrl);
+  }
+
+  getNumOfAlertsHighDay(thing_id: number,year: number,month: number,group_id?:any,type_id?:any) {
+    const apiUrl = `http://localhost:8000/query/alert2/t3?years=${year}&months=${month}`;
+
+    return this.http.get(apiUrl);
+  }
+
+  
+
+
+
 
   
 }
