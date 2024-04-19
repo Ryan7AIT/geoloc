@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import { PredictionService } from '../prediction.service';
 Chart.register(...registerables, annotationPlugin);
 
 @Component({
@@ -12,22 +13,21 @@ Chart.register(...registerables, annotationPlugin);
 })
 export class RealtimefuelComponent {
 
-  public xAxisLabels: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12','13','14','15','16','17','18','19','20','21','22','23',
-  '24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46',
-  '47','48','49','50','51','52','53','54','55','56','57','58','59','60'];
+  public xAxisLabels: string[] = [];
   public yAxisData: number[] = [];
 
 
-  constructor() {}
+  constructor(private predictionService: PredictionService) {}
 
   ngOnInit(): void {
     this.createChart();
     
-    for (let i = 0; i < 60; i++) {
-      this.yAxisData.push(Math.random() * (5 - 2) + 2);
-    }
-  }
+    this.getDataFromApi();
 
+    setInterval(() => {  this.getDataFromApi(); }, 10000);
+
+  }
+ 
   public chart: any;
 
   createChart() {
@@ -42,7 +42,7 @@ export class RealtimefuelComponent {
         labels: this.xAxisLabels,
         datasets: [
           {
-            label: 'Fule Consumption',
+            label: 'FUEL PERCENT',
             data: this.yAxisData,
             backgroundColor: 'rgba(4, 120, 228, 0.871)',
           },
@@ -65,8 +65,28 @@ export class RealtimefuelComponent {
             annotations: {
               line1: {
                 type: 'line',
-                yMin:9,
-                yMax: 9,
+                yMin:10,
+                yMax: 10,
+                borderColor: 'red',
+                borderWidth: 2,
+                borderDash: [4, 4],
+                label: {
+                  color: 'red',
+                  content: 'Threshold',
+                  position: 'start',
+                  display: true,
+                  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                  borderColor: 'red',
+                  borderWidth: 1,
+                  borderRadius: 2,
+                  borderDash: [4, 4],
+                }
+
+              },
+              line2: {
+                type: 'line',
+                yMin:110,
+                yMax: 110,
                 borderColor: 'red',
                 borderWidth: 2,
                 borderDash: [4, 4],
@@ -88,6 +108,31 @@ export class RealtimefuelComponent {
         },
       }
     });
+  }
+
+  getDataFromApi() {
+    // Call the appropriate method from the dashboard service to fetch data from the API endpoint
+    this.predictionService.getFuelData().subscribe(
+      (data:any) => {
+        // console.log(data);
+        
+        // Process the data returned from the API
+        this.xAxisLabels = data[1].reverse();
+        this.yAxisData = data[0].reverse();
+
+
+            // Update the chart with the new data
+    this.chart.data.labels = this.xAxisLabels;
+    this.chart.data.datasets[0].data = this.yAxisData;
+    this.chart.update();
+
+
+      },
+      (error:any) => {
+        // Handle any errors that occur during the API call
+        console.error(error);
+      }
+    );
   }
 
 

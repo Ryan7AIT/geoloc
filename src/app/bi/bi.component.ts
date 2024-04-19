@@ -88,14 +88,17 @@ export class BiComponent implements OnInit {
   ngOnInit() {
     // this.getCars();
 
+    this.getCars();
+    // this.getSelectedCar(this.selectedCarId);
+
       setInterval(() => {
     this.getSelectedCar(this.selectedCarId);
-  }, 2000);
+  }, 10000);
      
 
     setInterval(() => {
       this.getCars();
-    }, 2000);
+    }, 10000);
 
 
     // setTimeout(() => {
@@ -133,12 +136,18 @@ export class BiComponent implements OnInit {
   public nextMonth() {
     this.month = this.month + 1;
     this.date = this.monthNames[this.month] + ' 2024';
+    // this.date = 'dfdsfsdf'
+    
+    console.log(this.date);
+    
     this.updateDashboard();
   }
 
   public prevMonth() {
     this.month = this.month - 1;
     this.date = this.monthNames[this.month] + ' 2024';
+    console.log(this.date);
+
     this.updateDashboard();
   }
 
@@ -212,9 +221,8 @@ export class BiComponent implements OnInit {
         // }
 
 
-        
-          // console.log('aaa');
-          // console.log(this.cars);
+
+      
           
           
 
@@ -302,6 +310,10 @@ public getCarsWrong() {
 public getCars() {
   this.carService.getMapInfo().subscribe((data: any) => {
     this.cars = data;
+
+    
+
+
     
 
 
@@ -309,6 +321,7 @@ public getCars() {
       lat: item.latitude,
       lng: item.longitude
     }));
+
 
     let carIcon = L.icon({
       iconUrl: './../../assets/gps-navigation.png', // URL to your car icon image
@@ -329,18 +342,24 @@ public getCars() {
     // Clear the carMarkers array
     this.carMarkers = [];
 
+
+    
+
     for (let item of this.cars) {
-      let marker = L.marker([item.latitude, item.longitude],markerOptions).addTo(this.map);
+      let marker = L.marker([item.latitude , item.longitude],markerOptions).addTo(this.map);
       marker.on('click', () => {
         
         this.selectedCar = item;
         this.selectedCarId = item.thing_id;
         this.showSidebar = true;
+        this.getSelectedCar(this.selectedCarId);
       });
 
       // Add the new marker to the carMarkers array
       this.carMarkers.push(marker);
     }
+
+
   });
 }
 
@@ -402,6 +421,8 @@ private onMarker(event: any) {
     this.carService.getThing(this.selectedCarId).subscribe((data: any) => {
       
 
+
+      
       this.selectedCar = data[0]
       // this.selectedCarId = data[0];
 
@@ -488,7 +509,7 @@ private onMarker(event: any) {
 
     if(this.time == 'monthly') {
 
-      this.date = this.year.toString();
+      // this.date = this.year.toString();
 
 
 
@@ -520,7 +541,7 @@ private onMarker(event: any) {
           let currentMonthNumber = currentDate.getMonth() ; // Adding 1 to adjust for zero-based indexing
     
           // make the current month in the date var
-          this.date = monthNames[currentMonthNumber] + ' 2024'
+          // this.date = monthNames[currentMonthNumber] + ' 2024'
 
 
       this.distanceChartComponent.updateDashboard('daily',this.thing_id,this.group_id,this.type_id,this.year,this.month);

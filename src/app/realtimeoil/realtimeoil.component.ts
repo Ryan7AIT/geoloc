@@ -114,11 +114,12 @@ export class RealtimeoilComponent {
       // Call the appropriate method from the dashboard service to fetch data from the API endpoint
       this.predictionService.getOilData().subscribe(
         (data:any) => {
-          // console.log(data);
+          console.log(data);
           
           // Process the data returned from the API
-          this.xAxisLabels = data[1];
-          this.yAxisData = data[0];
+
+          this.xAxisLabels = data[1].reverse();
+          this.yAxisData = data[0].reverse();
   
   
               // Update the chart with the new data

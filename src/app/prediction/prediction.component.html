@@ -19,7 +19,7 @@
   <div class="flex justify-start mt-4 space-x-2">
     <!-- *ngIf="carStatus !== 'normal' -->
     <div class="px-3 py-2 text-sm font-bold text-white bg-green-500 rounded-full">
-        Normal
+            {{prediction}}
       </div>
     <button class="w-full px-4 py-2 text-sm font-bold text-white bg-blue-500 rounded hover:bg-blue-700" >
       Schedule Maintenance
@@ -52,7 +52,7 @@
                     <div class="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full"></div>
                     <div class="absolute top-0 left-0 w-full h-full rounded-full" [ngStyle]="getOilValueStyle()"></div>
                     <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full text-lg font-bold">
-                      {{oilvalue}}
+                      {{oilvalue}}L
                     </div>
                   </div>
               </div>

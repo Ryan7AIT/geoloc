@@ -131,7 +131,7 @@ export class AlertChartComponent {
 
 
 
-
+    
 
 
     //  second
@@ -225,6 +225,8 @@ export class AlertChartComponent {
         // this.chart.data.datasets[2].data = data[1];
         // this.chart.update();
       });
+
+      
     
     }
     
@@ -261,8 +263,7 @@ export class AlertChartComponent {
 
     else if(mode=='daily') {
 
-      console.log('month',month);
-      console.log('year',year);
+
 
       this.dashboardService.getNumOfAlrersSimpleDay(thing_id,year as number,month as number,group_id,type_id,).subscribe((data: any) => {
         this.xAxisLabels2 = data[0];
