@@ -330,8 +330,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
   }
 
   getNumOfAlrersSimpleDay(thing_id: number,year: number,month: number,group_id?:any,type_id?:any) {
-    console.log('hhhhhhhhh', year);
-    console.log('hhhhhhhhh', month);
+
 
     
     const apiUrl = `http://localhost:8000/query/alert2?years=${year}&months=${month}`;

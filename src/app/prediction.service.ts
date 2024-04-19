@@ -16,4 +16,19 @@ export class PredictionService {
 
     return this.http.get(url);
   }
+
+    // getOilData from api url
+    getFuelData() {
+      const url = 'http://localhost:8000/historical/fuel'
+  
+      return this.http.get(url);
+    }
+
+
+    // get prediction
+    getPrediction() {
+      const url = 'http://localhost:8000/get_car2'
+  
+      return this.http.get(url);
+    }
 }

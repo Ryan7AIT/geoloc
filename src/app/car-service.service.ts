@@ -95,5 +95,12 @@ export class CarServiceService {
     return this.http.get(apiUrl);
   }
 
+  // get prediction
+  getPrediction(thing_id: any) {
+    const url = 'http://localhost:8000/get_car2?thing_id=' + thing_id;
+
+    return this.http.get(url);
+  }
+
 }
 

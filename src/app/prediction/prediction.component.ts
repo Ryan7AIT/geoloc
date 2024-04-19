@@ -18,8 +18,13 @@ export class PredictionComponent {
   constructor(private carService: CarServiceService) {}
   public car:any= {};
   public oilvalue:number=0;
+  public fuelLevel:number=0;
+  public prediction = 'Normal';
 
   ngOnInit(): void {
+
+
+    this.getRealtimeinfo(627);
 
 
     // excecute this functin every 2 second
@@ -31,11 +36,10 @@ export class PredictionComponent {
   }
 
 
-  fuelLevel = 12; // This is your fuel level variable
   getFuelLevelStyle() {
     const percentage = this.fuelLevel / 100;
     const rotation = percentage * 360;
-    const color = this.fuelLevel > 80 ? '#F97316' : '#10B981'; // Use orange color if fuelLevel is more than 80, otherwise use green
+    const color = this.fuelLevel < 20 ? '#F97316' : '#10B981'; // Use orange color if fuelLevel is more than 80, otherwise use green
     return {
       'background': `conic-gradient(${color} 0% ${rotation}deg, #D1D5DB ${rotation}deg)`,
       'clip-path': 'circle(50% at 50% 50%)'
@@ -43,7 +47,7 @@ export class PredictionComponent {
   }
 
   getOilValueStyle() {
-    const percentage = this.oilvalue / 5;
+    const percentage = this.oilvalue / 6;
     const rotation = percentage * 360;
     const color = this.oilvalue < 3 ? '#F97316' : '#10B981'; // Use orange color if fuelLevel is more than 80, otherwise use green
     return {
@@ -59,16 +63,33 @@ getRealtimeinfo(car: any) {
   this.carService.getThing(car).subscribe((data: any) => {
   
     this.car = data[0]
-    console.log(data[0]);
+  
+    
     
     this.oilvalue = this.car.oil_value
+    this.fuelLevel = this.car.fuel_percent;
     
     this.getFuelLevelStyle();
     this.getOilValueStyle();
-    this.fuelLevel = this.car.speed
     
   }
   );
+
+
+  this.carService.getPrediction(car).subscribe((data: any) => {
+    if(data[0].prediction == 0){
+      this.prediction = 'Normal'
+    }else if(data[0].prediction == 1){
+      this.prediction = 'Warning'
+    }else if(data[0].prediction == 2){
+      this.prediction = 'Critical'
+    }
+    
+  })
+    
+
+
+
 }
 
 }
