@@ -121,13 +121,11 @@ export class AlertChartComponent {
 
   getDataFromApi(thing_id: number) {
     this.dashboardService.getAlerts(thing_id).subscribe((data: any) => {
-      this.xAxisLabels = data[0];
-      // this.yAxisData = data[1];
+      console.log(data);
 
-                  // Update the chart with the new data
-    // this.chart.data.labels = data[0];
-    this.chart.data.datasets[0].data = data[1];
-     this.chart.update();
+      this.xAxisLabels = data[0];
+      this.chart.data.datasets[0].data = data[1];
+      this.chart.update();
 
 
 
@@ -192,10 +190,27 @@ export class AlertChartComponent {
 
     // return;
     
-    
+    this.dashboardService.getAlerts(thing_id,group_id,type_id).subscribe((data: any) => {
+      console.log(group_id,type_id,data);
+      
+      // this.xAxisLabels = data[0];
+  // public xAxisLabels: string[] = ['Alert simple','Anomalie degré simple','Anomalie degré Moyen'];
+      this.chart.data.labels = ['Alert simple','Anomalie degré simple','Anomalie degré Moyen']; 
+      this.chart.data.datasets[0].data = data[1];
+      this.chart.update();
+    });
+
+
+
+
 
     if(mode=='yearly') {
-      this.dashboardService.getNumOfAlrersSimpleYear(thing_id).subscribe((data: any) => {
+
+
+
+
+
+      this.dashboardService.getNumOfAlrersSimpleYear(thing_id,group_id,type_id).subscribe((data: any) => {
         this.xAxisLabels2 = data[0];
         this.yAxisData2 = data[1];
         this.chart2.data.labels = data[0];
@@ -203,7 +218,7 @@ export class AlertChartComponent {
         this.chart2.update();
       });
 
-      this.dashboardService.getNumOfAlertsMeduimYear(thing_id).subscribe((data: any) => {
+      this.dashboardService.getNumOfAlertsMeduimYear(thing_id,group_id,type_id).subscribe((data: any) => {
         this.xAxisLabels3 = data[0];
         this.yAxisData3 = data[1];
         this.chart2.data.labels = data[0];
@@ -211,7 +226,7 @@ export class AlertChartComponent {
         this.chart2.update();
       });
 
-      this.dashboardService.getNumOfAlertsHighYear(thing_id).subscribe((data: any) => {
+      this.dashboardService.getNumOfAlertsHighYear(thing_id,group_id,type_id).subscribe((data: any) => {
 
 
         this.xAxisLabels4 = data[0];
