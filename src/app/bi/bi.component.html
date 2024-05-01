@@ -25,6 +25,9 @@
   
   
         </div>
+
+        <button class="px-4 py-2 text-white bg-red-500 rounded-lg" (click)="reset()">Reset</button>
+
   
       </div>
     </div>
@@ -53,11 +56,11 @@
     </div>
     <div class="w-full p-3">
         <h2 class="mb-2 text-xl font-semibold text-center text-blue-500">Fuel Consumption</h2>
-        <p class="text-3xl font-light text-center ">87M DA</p>
+        <p class="text-3xl font-light text-center ">87K L</p>
     </div>
     <div class="w-full p-3">
         <h2 class="mb-2 text-xl font-semibold text-center text-blue-500">Maintenance Due</h2>
-        <p class="text-3xl font-light text-center ">42</p>
+        <p class="text-3xl font-light text-center ">0</p>
     </div>
 </div>
 
@@ -84,7 +87,7 @@
     <div class="w-1/5 text-xs font-light">
         <label for="car-group-filter" class="block text-gray-700">Car Group</label>
         <select (change)="updateDash2($event)"   id="car-group-filter" name="car-group-filter" class="block w-full px-3 py-1 mt-1 text-xs bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-            <option value="group1">All</option>
+            <option value="0">All</option>
             <option   *ngFor="let carGroup of carGroups" value="{{carGroup.group_id}}">{{carGroup.thing_group_designation}}</option>
         </select>
     </div>
@@ -105,10 +108,10 @@
       <div class="relative w-1/5 text-xs font-light">
         <label for="car-group-filter" class="block mb-1 text-gray-700">By Company</label>
 
-        <input type="text" class="block w-full px-3 py-1 text-xs bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none" placeholder="Search for a specific car" [(ngModel)]="fleet" (input)="search($event)">
+        <input type="text" class="block w-full px-3 py-1 text-xs bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none" placeholder="Search for a specific company" [(ngModel)]="fleet" (input)="search($event)">
         <div class="absolute left-0 w-full bg-white border border-gray-300 rounded-lg shadow-lg top-10" *ngIf="searchResults.length > 0">
           <ul class="py-2">
-            <li *ngFor="let result of searchResults" class="px-4 py-2 cursor-pointer hover:bg-gray-100" (click)="selectResult(result[0],result[1])">
+            <li *ngFor="let result of searchResultsC" class="px-4 py-2 cursor-pointer hover:bg-gray-100" (click)="selectResultC(result[0],result[1])">
               {{ result[1] }}
             </li>
           </ul>

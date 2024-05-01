@@ -19,6 +19,7 @@ export class PredictionComponent {
   public car:any= {};
   public oilvalue:number=0;
   public fuelLevel:number=0;
+  public battery:number=0;
   public prediction = 'Normal';
 
   ngOnInit(): void {
@@ -56,6 +57,16 @@ export class PredictionComponent {
     };
   }
 
+  getBatteryStyle() {
+    const percentage = this.battery / 14;
+    const rotation = percentage * 360;
+    const color = this.battery < 12 ? '#F97316' : '#10B981'; // Use orange color if fuelLevel is more than 80, otherwise use green
+    return {
+      'background': `conic-gradient(${color} 0% ${rotation}deg, #D1D5DB ${rotation}deg)`,
+      'clip-path': 'circle(50% at 50% 50%)'
+    };
+  }
+
 
 
 getRealtimeinfo(car: any) {
@@ -68,9 +79,11 @@ getRealtimeinfo(car: any) {
     
     this.oilvalue = this.car.oil_value
     this.fuelLevel = this.car.fuel_percent;
+    this.battery = this.car.battery;
     
     this.getFuelLevelStyle();
     this.getOilValueStyle();
+    this.getBatteryStyle(); 
     
   }
   );

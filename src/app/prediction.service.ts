@@ -24,6 +24,13 @@ export class PredictionService {
       return this.http.get(url);
     }
 
+    // get battery from api url
+    getBatteryData() {
+      const url = 'http://localhost:8000/historical/battery'
+  
+      return this.http.get(url);
+    }
+
 
     // get prediction
     getPrediction() {
@@ -31,4 +38,7 @@ export class PredictionService {
   
       return this.http.get(url);
     }
+
+
+    // 
 }

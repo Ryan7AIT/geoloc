@@ -65,6 +65,8 @@ export class BiComponent implements OnInit {
   public group_id = 0;
   public type_id = 0;
   public searchResults:any = [];
+  public searchResultsC:any = [];
+
   public thing: any;
   public fleet = 'My fleet';
   public date = '';
@@ -81,6 +83,20 @@ export class BiComponent implements OnInit {
 
 
   public month =  this.currentMonthNumber;
+
+
+  public reset(){
+    this.searchResults = [];
+    this.thing_id = 0;
+    this.time = 'yearly';
+    this.date= '2024';
+    this.type = 'type0'
+    this.fleet = 'My fleet';
+
+    this.updateDashboard();
+
+    
+  }
 
   
 
@@ -487,6 +503,7 @@ private onMarker(event: any) {
 
 
     if( this.time== 'yearly') {
+      
       this.distanceChartComponent.updateDashboard('yearly',this.thing_id,this.group_id,this.type_id);
       // set 0.5 timeout
       // setTimeout(() => {  
@@ -511,6 +528,7 @@ private onMarker(event: any) {
 
       // this.date = this.year.toString();
 
+      this.date = this.year.toString();
 
 
       this.distanceChartComponent.updateDashboard('monthly',this.thing_id,this.year,this.group_id,this.type_id);
@@ -531,6 +549,7 @@ private onMarker(event: any) {
 
     if(this.time == 'daily') {
 
+    this.date = this.monthNames[this.month] + ' 2024';
 
       const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
@@ -629,6 +648,16 @@ private onMarker(event: any) {
     this.searchResults = [];
   }
 
+
+  public selectResultC(id:number,name:string) {
+
+    
+    this.thing_id = id;
+    this.updateDashboard();
+    this.getJourneys();
+    this.fleet = name;
+    this.searchResults = [];
+  }
 
   public search(event:any) {
     

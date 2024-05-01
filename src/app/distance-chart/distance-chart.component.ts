@@ -82,6 +82,7 @@ export class DistanceChartComponent {
 
   updateDashboard(mode:string,thing_id:any,group_id:any,type_id:any,year?:number,month?:number) {
 
+
     if(mode=='yearly') {
 
       this.dashboardService.getDistanceTravlledYears(thing_id,group_id,type_id).subscribe(

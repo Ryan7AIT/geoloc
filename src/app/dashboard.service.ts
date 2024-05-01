@@ -45,7 +45,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/distancea2?thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/distancea2?group_id=${group_id}`;
     }
 
@@ -69,7 +69,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/distancea2?years=${year}&thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/distancea2?years=${year}&group_id=${group_id}`;
     }
 
@@ -91,7 +91,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/distancea2?months=${month}&years=${year}&thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/distancea2?months=${month}&years=${year}&group_id=${group_id}`;
     }
 
@@ -320,7 +320,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/alerts?thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/alerts?group_id=${group_id}`;
     }
 
@@ -343,7 +343,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/alert2?thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/alert2?group_id=${group_id}`;
     }
 
@@ -363,7 +363,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/alert2?years=${year}&thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/alert2?years=${year}&group_id=${group_id}`;
     }
 
@@ -387,7 +387,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/alert2?years=${year}&months=${month}&thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/alert2?years=${year}&months=${month}&group_id=${group_id}`;
     }
 
@@ -409,7 +409,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/alert2/t2?thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/alert2/t2?group_id=${group_id}`;
     }
 
@@ -429,7 +429,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/alert2/t2?years=${year}&thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/alert2/t2?years=${year}&group_id=${group_id}`;
     }
 
@@ -450,7 +450,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/alert2/t2?years=${year}&months=${month}&thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/alert2/t2?years=${year}&months=${month}&group_id=${group_id}`;
     }
 
@@ -471,7 +471,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/alert2/t3?thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/alert2/t3?group_id=${group_id}`;
     }
 
@@ -492,7 +492,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/alert2/t3?years=${year}&thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/alert2/t3?years=${year}&group_id=${group_id}`;
     }
 
@@ -513,7 +513,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
       apiUrl = `http://localhost:8000/query/alert2/t3?years=${year}&months=${month}&thing_id=${thing_id}`;
     }
 
-    if (group_id) {
+    if (group_id && group_id != 0) {
       apiUrl = `http://localhost:8000/query/alert2/t3?years=${year}&months=${month}&group_id=${group_id}`;
     }
 

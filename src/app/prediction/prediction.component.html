@@ -67,7 +67,7 @@
                     <div class="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full"></div>
                     <div class="absolute top-0 left-0 w-full h-full rounded-full" [ngStyle]="getFuelLevelStyle()"></div>
                     <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full text-lg font-bold">
-                      {{fuelLevel}}
+                      {{fuelLevel}}%
                     </div>
                   </div>
               </div>
@@ -82,7 +82,7 @@
                     <div class="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full"></div>
                     <div class="absolute top-0 left-0 w-full h-full rounded-full" [ngStyle]="getFuelLevelStyle()"></div>
                     <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full text-lg font-bold" [ngClass]="{'text-orange-500': fuelLevel > 10}">
-                      {{fuelLevel}}
+                      {{battery}}V
                     </div>
                   </div>
               </div>
@@ -98,7 +98,7 @@
                     <div class="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full"></div>
                     <div class="absolute top-0 left-0 w-full h-full rounded-full" [ngStyle]="getFuelLevelStyle()"></div>
                     <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full text-lg font-bold">
-                      {{car.speed}}
+                      {{car.speed}}km/h
                     </div>
                   </div>
               </div>
