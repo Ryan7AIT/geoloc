@@ -121,7 +121,7 @@ export class AlertChartComponent {
 
   getDataFromApi(thing_id: number) {
     this.dashboardService.getAlerts(thing_id).subscribe((data: any) => {
-      console.log(data);
+      
 
       this.xAxisLabels = data[0];
       this.chart.data.datasets[0].data = data[1];
@@ -137,7 +137,7 @@ export class AlertChartComponent {
 
     this.dashboardService.getNumOfAlrersSimpleYear(thing_id).subscribe((data: any) => {
       
-  
+      
       
       this.xAxisLabels2 = data[0];      
       this.yAxisData2 = data[1];
@@ -190,8 +190,10 @@ export class AlertChartComponent {
 
     // return;
     
-    this.dashboardService.getAlerts(thing_id,group_id,type_id).subscribe((data: any) => {
-      console.log(group_id,type_id,data);
+    this.dashboardService.getAlerts(thing_id).subscribe((data: any) => {
+
+      console.log(data);
+
       
       // this.xAxisLabels = data[0];
   // public xAxisLabels: string[] = ['Alert simple','Anomalie degré simple','Anomalie degré Moyen'];
@@ -211,16 +213,30 @@ export class AlertChartComponent {
 
 
       this.dashboardService.getNumOfAlrersSimpleYear(thing_id,group_id,type_id).subscribe((data: any) => {
+
+        
         this.xAxisLabels2 = data[0];
         this.yAxisData2 = data[1];
+
+        if(data[1].length == 0){
+          this.yAxisData2 = [0];
+        }
+
+
         this.chart2.data.labels = data[0];
-        this.chart2.data.datasets[0].data = data[1];
+        this.chart2.data.datasets[0].data = this.yAxisData2;
         this.chart2.update();
       });
 
       this.dashboardService.getNumOfAlertsMeduimYear(thing_id,group_id,type_id).subscribe((data: any) => {
         this.xAxisLabels3 = data[0];
         this.yAxisData3 = data[1];
+
+        if(data[1].length == 0){
+          this.yAxisData2 = [0];
+        }
+
+
         this.chart2.data.labels = data[0];
         this.chart2.data.datasets[1].data = data[1];
         this.chart2.update();
@@ -231,6 +247,12 @@ export class AlertChartComponent {
 
         this.xAxisLabels4 = data[0];
         this.yAxisData4 = data[1];
+        
+        if(data[1].length == 0){
+          this.yAxisData2 = [0];
+        }
+
+
         this.chart2.data.labels = data[0];
         this.chart2.data.datasets[2].data = data[1];
         this.chart2.update();
@@ -253,14 +275,23 @@ export class AlertChartComponent {
       this.dashboardService.getNumOfAlrersSimpleMonth(thing_id,group_id,type_id,year as number).subscribe((data: any) => {
         this.xAxisLabels2 = data[0];
         this.yAxisData2 = data[1];
+        if(data[1].length == 0){
+          this.yAxisData2 = [0];
+        }
+
         this.chart2.data.labels = data[0];
-        this.chart2.data.datasets[0].data = data[1];
+        this.chart2.data.datasets[0].data = this.yAxisData2;
         this.chart2.update();
       });
 
       this.dashboardService.getNumOfAlertsMeduimMonth(thing_id,group_id,type_id,year as number).subscribe((data: any) => {
+        
         this.xAxisLabels3 = data[0];
         this.yAxisData3 = data[1];
+        if(data[1].length == 0){
+          this.yAxisData2 = [0];
+        }
+
         this.chart2.data.labels = data[0];
         this.chart2.data.datasets[1].data = data[1];
         this.chart2.update();
@@ -269,6 +300,10 @@ export class AlertChartComponent {
       this.dashboardService.getNumOfAlertsHighMonth(thing_id,group_id,type_id,year as number).subscribe((data: any) => {
         this.xAxisLabels4 = data[0];
         this.yAxisData4 = data[1];
+        if(data[1].length == 0){
+          this.yAxisData2 = [0];
+        }
+
         this.chart2.data.labels = data[0];
         this.chart2.data.datasets[2].data = data[1];
         this.chart2.update();
@@ -283,6 +318,9 @@ export class AlertChartComponent {
       this.dashboardService.getNumOfAlrersSimpleDay(thing_id,year as number,month as number,group_id,type_id,).subscribe((data: any) => {
         this.xAxisLabels2 = data[0];
         this.yAxisData2 = data[1];
+        if(data[1].length == 0){
+          this.yAxisData2 = [0];
+        }
         this.chart2.data.labels = data[0];
         this.chart2.data.datasets[0].data = data[1];
         this.chart2.update();
@@ -291,6 +329,9 @@ export class AlertChartComponent {
       this.dashboardService.getNumOfAlertsMeduimDay(thing_id,year as number,month as number,group_id,type_id).subscribe((data: any) => {
         this.xAxisLabels3 = data[0];
         this.yAxisData3 = data[1];
+        if(data[1].length == 0){
+          this.yAxisData2 = [0];
+        }
         this.chart2.data.labels = data[0];
         this.chart2.data.datasets[1].data = data[1];
         this.chart2.update();
@@ -299,6 +340,10 @@ export class AlertChartComponent {
       this.dashboardService.getNumOfAlertsHighDay(thing_id,year as number,month as number,group_id,type_id).subscribe((data: any) => {
         this.xAxisLabels4 = data[0];
         this.yAxisData4 = data[1];
+        if(data[1].length == 0){
+          this.yAxisData2 = [0];
+        }
+
         this.chart2.data.labels = data[0];
         this.chart2.data.datasets[2].data = data[1];
         this.chart2.update();

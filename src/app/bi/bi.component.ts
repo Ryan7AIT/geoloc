@@ -64,11 +64,13 @@ export class BiComponent implements OnInit {
   public thing_id = 0;  
   public group_id = 0;
   public type_id = 0;
+  public company_id = 0;
   public searchResults:any = [];
   public searchResultsC:any = [];
 
   public thing: any;
   public fleet = 'My fleet';
+  public fleetC = '';
   public date = '';
   public time = 'yearly';
   public year = 2024;
@@ -102,25 +104,13 @@ export class BiComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.getCars();
-
     this.getCars();
-    // this.getSelectedCar(this.selectedCarId);
-
-      setInterval(() => {
     this.getSelectedCar(this.selectedCarId);
-  }, 10000);
-     
 
-    setInterval(() => {
-      this.getCars();
-    }, 10000);
+    setInterval(() => {this.getSelectedCar(this.selectedCarId);}, 10000);
+    setInterval(() => {this.getCars();}, 10000);
 
-
-    // setTimeout(() => {
     this.initializeMap();
-      
-    // }, 1000);
     this.getJourneys();
     this.getNumberOfVehicles()
     this.getTypes();
@@ -188,44 +178,28 @@ export class BiComponent implements OnInit {
         this.map.panInsideBounds(algeriaBounds, { animate: false });
     });
 
-      //   // Add event listeners for entering and exiting fullscreen
-      //   this.map.on('enterFullscreen', () => {
-      //     this.map.setZoom(2);  // Set a higher zoom level for fullscreen
-      // });
   
       this.map.on('exitFullscreen', () => {
           this.map.setZoom(5);  // Reset to the original zoom level
       });
-
-    // Add any additional map layers or markers here
 
     document.addEventListener('fullscreenchange', () => {
       this.map.invalidateSize();
   });
 
 
-      // List of car positions
-    //   var carPositions = [
-    //     { lat: 28.0339, lng: 1.6596 },
-    //     { lat: 29.0339, lng: 2.6596 },
-    //     // Add more positions here
-    // ];
-
 
 
     let carIcon = L.icon({
       iconUrl: './../../assets/gps-navigation.png', // URL to your car icon image
-      iconSize: [35, 35], // size of the icon
+      iconSize: [30, 30], // size of the icon
       iconAnchor: [18, 18], // point of the icon which will correspond to marker's location
     });
     const markerOptions = {
       title: 'Marker',
       icon: carIcon ,
       draggable: true,
-      
-
     };
-
 
 
     
@@ -324,14 +298,8 @@ public getCarsWrong() {
 
 
 public getCars() {
-  this.carService.getMapInfo().subscribe((data: any) => {
+  this.carService.getMapInfo(this.thing_id,this.type_id,this.group_id).subscribe((data: any) => {
     this.cars = data;
-
-    
-
-
-    
-
 
     this.carPositions = data.map((item:any) => ({
       lat: item.latitude,
@@ -482,6 +450,9 @@ private onMarker(event: any) {
   }
 
   updateDashboard(event?: any) {
+    this.getCars();
+    this.getJourneys();
+    this.getJourneyNumbers();
 
     // check if event is passed
     if(!event) {
@@ -586,14 +557,15 @@ private onMarker(event: any) {
   getJourneys() {
     this.carService.getJourneys(this.page,this.thing_id,this.group_id,this.type_id).subscribe((data: any) => {
 
-
+      console.log(data);
+      
       this.journeys = data;
       
     } );
   }
 
   getJourneyNumbers() {
-    this.carService.getJourneyNumbers().subscribe((data: any) => {
+    this.carService.getJourneyNumbers(this.thing_id).subscribe((data: any) => {
 
       this.journeyNumbers = data[0].journey_count;
     this.f = Math.ceil(this.journeyNumbers/5);

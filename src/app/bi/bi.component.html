@@ -108,8 +108,8 @@
       <div class="relative w-1/5 text-xs font-light">
         <label for="car-group-filter" class="block mb-1 text-gray-700">By Company</label>
 
-        <input type="text" class="block w-full px-3 py-1 text-xs bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none" placeholder="Search for a specific company" [(ngModel)]="fleet" (input)="search($event)">
-        <div class="absolute left-0 w-full bg-white border border-gray-300 rounded-lg shadow-lg top-10" *ngIf="searchResults.length > 0">
+        <input type="text" class="block w-full px-3 py-1 text-xs bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none" placeholder="Search for a specific company" [(ngModel)]="fleetC" (input)="search($event)">
+        <div class="absolute left-0 w-full bg-white border border-gray-300 rounded-lg shadow-lg top-10" *ngIf="searchResultsC.length > 0">
           <ul class="py-2">
             <li *ngFor="let result of searchResultsC" class="px-4 py-2 cursor-pointer hover:bg-gray-100" (click)="selectResultC(result[0],result[1])">
               {{ result[1] }}

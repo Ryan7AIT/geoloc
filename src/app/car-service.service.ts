@@ -50,8 +50,17 @@ export class CarServiceService {
     return this.http.get(apiUrl);
   }
 
-  getJourneyNumbers() {
-    const apiUrl = `http://localhost:8000/journycount`;
+  getJourneyNumbers(thing_id: any) {
+
+    let apiUrl: string;
+
+    if (thing_id == 0) {
+      apiUrl = `http://localhost:8000/journycount`;
+    }
+    else {
+      apiUrl = `http://localhost:8000/journycount?thing_id=${thing_id}`;
+    }
+
 
     return this.http.get(apiUrl);
   }
@@ -89,8 +98,23 @@ export class CarServiceService {
     return this.http.get(apiUrl);
   }
 
-  getMapInfo() {
-    const apiUrl = `http://localhost:8000/get_cars`;
+  getMapInfo(thing_id?: any, type_id?: any,group_id?:any) {
+
+    let apiUrl: string;
+
+    if (thing_id == 0)  {
+      apiUrl = `http://localhost:8000/get_cars`;
+
+    }else {
+      apiUrl = `http://localhost:8000/get_cars?thing_id=${thing_id}`;
+    }
+
+  if (type_id) {
+    apiUrl = `http://localhost:8000/get_cars?type_id=${type_id}`;
+  }else if(group_id){
+    apiUrl = `http://localhost:8000/get_cars?group_id=${group_id}`;
+  }
+
 
     return this.http.get(apiUrl);
   }
