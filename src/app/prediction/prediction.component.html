@@ -16,17 +16,21 @@
 
 
         <!-- Maintenance Action -->
-  <div class="flex justify-start mt-4 space-x-2">
-    <!-- *ngIf="carStatus !== 'normal' -->
-    <div class="px-3 py-2 text-sm font-bold text-white bg-green-500 rounded-full">
-            {{prediction}}
-      </div>
-    <button class="w-full px-4 py-2 text-sm font-bold text-white bg-blue-500 rounded hover:bg-blue-700" >
-      Schedule Maintenance
-    </button>
-  </div>
+        <div class="flex justify-start mt-4 space-x-2">
+            <!-- *ngIf="carStatus !== 'normal' -->
+            <div class="px-3 py-2 text-sm font-bold text-white bg-green-500 rounded-full">
+                    {{prediction}}
+            </div>
+            <button class="w-full px-4 py-2 text-sm font-bold text-white bg-blue-500 rounded hover:bg-blue-700" >
+            Schedule Maintenance
+            </button>
+        </div>
+
       
     </div>
+
+
+
 
 
     <div class="flex justify-start p-4 space-x-4 text-xs font-semibold realtimeinfo">
@@ -39,6 +43,41 @@
             <!-- <p class="font-semibold">Position: <span class="text-gray-500">{{position}}</span></p> -->
         </div>
     </div>
+
+
+
+    <div class="flex justify-between p-6 mx-10 text-xs bg-white rounded-lg shadow-lg ">
+        <!-- <h2 class="mb-4 text-2xl font-bold text-center text-gray-800">Predictive Maintenance Dashboard</h2> -->
+    
+        <div class="flex items-center justify-between w-3/5 mb-6 ">
+          <div class="flex items-center w-full pt-5">
+            <div class="relative w-4/5 h-8 mr-4 overflow-hidden bg-gray-200 border border-gray-300 rounded-lg">
+              <div class="absolute inset-0 flex items-center justify-center font-semibold text-white"
+                   [style.width.%]="rulPercentage"
+                   [ngClass]="{
+                     'bg-red-500': rulPercentage <= 30,
+                     'bg-yellow-500': rulPercentage > 30 && rulPercentage <= 70,
+                     'bg-green-500': rulPercentage > 70
+                   }">
+                {{ rul }} KM
+              </div>
+            </div>
+            <span class="text-xs font-semibold text-gray-700 w-96 ">PREDICTED DISTANCE REMAINING: {{ rul }} KM </span>
+          </div>
+        </div>
+    
+        <div class="flex items-center justify-center">
+          <span class="mr-2 font-semibold text-gray-700">Automaticly schedule Maintenance: </span>
+          <label class="relative inline-block w-10 mr-2 align-middle transition duration-200 ease-in select-none">
+            <input type="checkbox" name="toggle" id="toggle" [(ngModel)]="autoMaintenanceActive" 
+                   class="absolute block w-6 h-6 bg-white border-4 rounded-full appearance-none cursor-pointer toggle-checkbox"/>
+            <span class="block h-6 overflow-hidden bg-gray-300 rounded-full cursor-pointer toggle-label"></span>
+          </label>
+          <span class="text-xs font-semibold text-gray-700">{{ autoMaintenanceActive ? 'Yes' : 'No' }}</span>
+        </div>
+      </div>
+
+      
 
     <!-- Second row: Cards -->
     <div class="grid grid-cols-4 gap-4 mx-10">
