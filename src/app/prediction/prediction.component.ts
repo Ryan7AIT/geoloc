@@ -22,9 +22,9 @@ export class PredictionComponent {
   public fuelLevel:number=0;
   public battery:number=0;
   public prediction = 'Normal';
-  public rul = 20;
+  public rul! : number;
   public autoMaintenanceActive = true;
-  public rulPercentage = 70;
+  public rulPercentage! : number;
 
   ngOnInit(): void {
 
@@ -94,6 +94,18 @@ getRealtimeinfo(car: any) {
 
 
   this.carService.getPrediction(car).subscribe((data: any) => {
+    console.log(data[0]);
+
+    this.rul = data[0].rul;
+
+    if(this.rul < 0){
+      this.rulPercentage = 100;
+    }else if (this.rul > 5000){
+      this.rulPercentage = 20;
+    } else if (this.rul > 100 && this.rul < 500){
+      this.rulPercentage = 40
+    }
+    
     if(data[0].prediction == 0){
       this.prediction = 'Normal'
     }else if(data[0].prediction == 1){

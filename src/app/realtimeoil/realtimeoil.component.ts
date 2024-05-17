@@ -114,7 +114,6 @@ export class RealtimeoilComponent {
       // Call the appropriate method from the dashboard service to fetch data from the API endpoint
       this.predictionService.getOilData().subscribe(
         (data:any) => {
-          console.log(data);
           
           // Process the data returned from the API
 

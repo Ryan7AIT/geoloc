@@ -55,9 +55,9 @@
               <div class="absolute inset-0 flex items-center justify-center font-semibold text-white"
                    [style.width.%]="rulPercentage"
                    [ngClass]="{
-                     'bg-red-500': rulPercentage <= 30,
-                     'bg-yellow-500': rulPercentage > 30 && rulPercentage <= 70,
-                     'bg-green-500': rulPercentage > 70
+                     'bg-green-500': rulPercentage <= 30,
+                     'bg-yellow-500': rulPercentage > 30 && rulPercentage <= 80,
+                     'bg-red-500': rulPercentage > 80
                    }">
                 {{ rul }} KM
               </div>
