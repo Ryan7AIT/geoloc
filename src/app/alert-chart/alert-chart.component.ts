@@ -58,7 +58,7 @@ export class AlertChartComponent {
         labels: this.xAxisLabels,
         datasets: [
           {
-            label: 'number of alers',
+            label: 'Number of alerts',
             data: this.yAxisData,
             backgroundColor: 'rgba(4, 120, 228, 0.871)',
           },
@@ -92,12 +92,12 @@ export class AlertChartComponent {
             backgroundColor: 'rgba(4, 120, 228, 0.871)',
           },
           {
-            label: 'Alerte, anomalie degré simple',
+            label: 'Anomalie degré simple',
             data: this.yAxisData3,
             backgroundColor: 'rgb(244, 66, 66)',
           },
           {
-            label: 'Alerte, anomalie degré simple',
+            label: 'Anomalie degré moyen',
             data: this.yAxisData4,
             backgroundColor: 'rgba(252, 224, 255, 0.829)',
           }
@@ -110,7 +110,7 @@ export class AlertChartComponent {
             stacked: true
           },
           y: {
-            stacked: true
+            stacked: false
           }
         }
       }
@@ -137,7 +137,7 @@ export class AlertChartComponent {
 
     this.dashboardService.getNumOfAlrersSimpleYear(thing_id).subscribe((data: any) => {
       
-      
+        
       
       this.xAxisLabels2 = data[0];      
       this.yAxisData2 = data[1];
@@ -157,6 +157,7 @@ export class AlertChartComponent {
 
     this.dashboardService.getNumOfAlertsMeduimYear(thing_id).subscribe((data: any) => {
           
+      console.log(data);
   
       this.xAxisLabels3 = data[0];
       this.yAxisData3 = data[1];
@@ -213,6 +214,8 @@ export class AlertChartComponent {
 
 
       this.dashboardService.getNumOfAlrersSimpleYear(thing_id,group_id,type_id).subscribe((data: any) => {
+
+        
 
         
         this.xAxisLabels2 = data[0];

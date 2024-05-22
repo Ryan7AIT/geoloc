@@ -5,6 +5,7 @@ import { MapComponent } from '../map/map.component';
 import { RouterOutlet } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,7 @@ export class DashboardComponent  implements OnInit{
   data: any;
   public showSidebar = false;
 
-  constructor(private dataService: DashboardService) {}
+  constructor(private dataService: DashboardService, private authService: AuthService) {}
 
   ngOnInit() {
     // this.dataService.getDataFromApi().subscribe(
@@ -35,6 +36,11 @@ export class DashboardComponent  implements OnInit{
 
   toggleSidebar() {
     this.showSidebar = !this.showSidebar;
+  }
+
+  l() {
+    this.authService.logout();
+
   }
 
 }

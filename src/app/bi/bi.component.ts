@@ -18,6 +18,8 @@ import { FormsModule } from '@angular/forms';
 
 import * as L from 'leaflet';
 import 'leaflet.fullscreen';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -81,7 +83,7 @@ export class BiComponent implements OnInit {
   public currentDate = new Date();
     
   // Extract the month number from the current date (months are zero-based, so January is 0)
-  public currentMonthNumber = this.currentDate.getMonth() ; // Adding 1 to adjust for zero-based indexing
+  public currentMonthNumber = this.currentDate.getMonth()  + 1; // Adding 1 to adjust for zero-based indexing
 
 
   public month =  this.currentMonthNumber;
@@ -90,6 +92,7 @@ export class BiComponent implements OnInit {
   public reset(){
     this.searchResults = [];
     this.thing_id = 0;
+    this.group_id = 0;
     this.time = 'yearly';
     this.date= '2024';
     this.type = 'type0'
@@ -104,6 +107,12 @@ export class BiComponent implements OnInit {
 
 
   ngOnInit() {
+    
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    }
+
+
     this.getCars();
     this.getSelectedCar(this.selectedCarId);
 
@@ -123,7 +132,7 @@ export class BiComponent implements OnInit {
 
 
 
-  constructor(private carService: CarServiceService,private dashboardService: DashboardService) { }
+  constructor(private carService: CarServiceService,private dashboardService: DashboardService,private authService: AuthService, private router: Router) { }
 
 
 
@@ -141,7 +150,7 @@ export class BiComponent implements OnInit {
 
   public nextMonth() {
     this.month = this.month + 1;
-    this.date = this.monthNames[this.month] + ' 2024';
+    this.date = this.monthNames[this.month -1] + ' 2024';
     // this.date = 'dfdsfsdf'
     
     console.log(this.date);
@@ -151,7 +160,7 @@ export class BiComponent implements OnInit {
 
   public prevMonth() {
     this.month = this.month - 1;
-    this.date = this.monthNames[this.month] + ' 2024';
+    this.date = this.monthNames[this.month-1] + ' 2024';
     console.log(this.date);
 
     this.updateDashboard();
@@ -180,7 +189,7 @@ export class BiComponent implements OnInit {
 
   
       this.map.on('exitFullscreen', () => {
-          this.map.setZoom(5);  // Reset to the original zoom level
+          this.map.setZoom(5);   // Reset to the original zoom level
       });
 
     document.addEventListener('fullscreenchange', () => {
@@ -200,33 +209,6 @@ export class BiComponent implements OnInit {
       icon: carIcon ,
       draggable: true,
     };
-
-
-    
-
-        // Add a marker for each car position
-        // for (let position of this.carPositions) {
-        //   var m = L.marker([position.lat, position.lng], markerOptions).addTo(this.map).on('click', this.onMarker.bind(this));
-        //   this.carMarkers.push(m);
-        // }
-
-
-
-      
-          
-          
-
-
-
-        // Define the path and store it in the path variable
-        // var pathCoordinates: L.LatLngExpression[] = [
-        //   [28.0339, 1.6596],
-        //   [29.0339, 2.6596],
-        //   // Add more coordinates here
-        // ];
-        // this.path = L.polyline(pathCoordinates, { color: 'red' });
-      
-
 
       
 }
@@ -347,6 +329,9 @@ public getCars() {
   });
 }
 
+// Declare markers at a higher scope
+public firstMarker: any = null;
+public lastMarker: any = null;
 
 onButtonClick(path: any) {
 
@@ -357,41 +342,64 @@ onButtonClick(path: any) {
         return [parseFloat(lat), parseFloat(lng)];
     });
 
+
+    let firstPoint = pathCoordinates[0];
+    let lastPoint = pathCoordinates[pathCoordinates.length - 1];
+
+
+    L.Icon.Default.imagePath = '/node_modules/leaflet/dist/images/';
+
+    let carIcon = L.icon({
+      iconUrl: './../../assets/marker-icon.png', // URL to your car icon image
+      iconSize: [35, 35], // size of the icon
+      iconAnchor: [18, 18], // point of the icon which will correspond to marker's location
+    });
+    const markerOptions = {
+      title: 'Marker',
+      icon: carIcon ,
+      draggable: true,
+      
+
+    };
+
+
     // If the path is on the map, remove it and add the car markers
     if (this.path && this.map.hasLayer(this.path)) {
         this.path.removeFrom(this.map);
+        console.log(this.firstMarker);
+
+        if (this.firstMarker) {
+          
+          this.firstMarker.removeFrom(this.map);
+          this.firstMarker = null; // Ensure it's set to null after removing
+        }
+        if (this.lastMarker) {
+          this.lastMarker.removeFrom(this.map);
+          this.lastMarker = null; // Ensure it's set to null after removing
+        }
+
         for (let marker of this.carMarkers) {
             marker.addTo(this.map);
         }
         this.path = null;
+        this.map.setZoom(5);
     }
     // If the path is not on the map, create a new path, add it, and remove the car markers
     else {
+      this.firstMarker = L.marker(firstPoint, markerOptions).addTo(this.map);
+      this.lastMarker = L.marker(lastPoint, markerOptions).addTo(this.map);
+
         this.path = L.polyline(pathCoordinates, { color: 'red' }).addTo(this.map);
+
         for (let marker of this.carMarkers) {
             marker.removeFrom(this.map);
         }
     }
 
-
-        // Move the map to the path
+    // Move the map to the path
+    if (this.path) {
         this.map.fitBounds(this.path.getBounds());
-
-}
-
-private onMarker(event: any) {
-  const marker = event.target;
-  this.showSidebar = !this.showSidebar ;
-
-  
-
-
-  
-  // const markerId = this.markers.indexOf(marker);
-
-
-  
-  // this.newItemEvent.emit(`Marker ID: ${this.cars[markerId][1]}`);
+    }
 }
 
 
@@ -520,7 +528,7 @@ private onMarker(event: any) {
 
     if(this.time == 'daily') {
 
-    this.date = this.monthNames[this.month] + ' 2024';
+    this.date = this.monthNames[this.month -1 ] + ' 2024';
 
       const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
@@ -565,9 +573,25 @@ private onMarker(event: any) {
   }
 
   getJourneyNumbers() {
-    this.carService.getJourneyNumbers(this.thing_id).subscribe((data: any) => {
+    this.carService.getJourneyNumbers(this.thing_id,this.group_id,this.type_id).subscribe((data: any) => {
 
-      this.journeyNumbers = data[0].journey_count;
+      console.log(data.length);
+      
+
+      
+
+
+
+      // check if data is nulll
+      if(data.length == 0) {
+        
+        this.journeyNumbers = 0;
+      }else{
+        this.journeyNumbers = data[0].journey_count;
+
+      }
+
+
     this.f = Math.ceil(this.journeyNumbers/5);
 
       

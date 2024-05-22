@@ -1,0 +1,21 @@
+<!-- login.component.html -->
+<div class="flex items-center justify-center min-h-screen background">
+    <div class="w-full max-w-md p-8 rounded-lg shadow-lg form-container">
+      <h2 class="mb-6 text-3xl font-bold text-center text-gray-800">Fleet Management Login</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+          <label for="email" class="block mb-2 text-sm font-bold text-gray-700">Email</label>
+          <input type="email" id="email" [(ngModel)]="email" name="email" class="w-full px-3 py-2 leading-tight text-gray-700 transition duration-300 ease-in-out transform border rounded shadow appearance-none focus:outline-none focus:shadow-outline hover:-translate-y-1 hover:shadow-lg" placeholder="Enter your email" required>
+        </div>
+        <div class="mb-6">
+          <label for="password" class="block mb-2 text-sm font-bold text-gray-700">Password</label>
+          <input type="password" id="password" [(ngModel)]="password" name="password" class="w-full px-3 py-2 mb-3 leading-tight text-gray-700 transition duration-300 ease-in-out transform border rounded shadow appearance-none focus:outline-none focus:shadow-outline hover:-translate-y-1 hover:shadow-lg" placeholder="Enter your password" required>
+        </div>
+        <div class="flex items-center justify-between">
+          <button type="submit" class="px-4 py-2 font-bold text-white transition duration-300 ease-in-out transform bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline hover:-translate-y-1 hover:shadow-lg">Login</button>
+        </div>
+      </form>
+      <p class="mt-6 text-xs text-center text-gray-500">&copy;2024 Fleet Management System. All rights reserved.</p>
+    </div>
+  </div>
+  

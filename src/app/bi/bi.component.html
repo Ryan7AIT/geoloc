@@ -2,7 +2,10 @@
 
 
     <div class="flex items-center space-x-4">
-        <div class="">
+        <div class="flex justify-between w-full ">
+
+            <div class="">
+
   
         <h1 class="text-2xl font-semibold text-gray-500 ">DATAFIRST Analytics Report</h1>
   
@@ -25,8 +28,9 @@
   
   
         </div>
+    </div>
 
-        <button class="px-4 py-2 text-white bg-red-500 rounded-lg" (click)="reset()">Reset</button>
+        <button class="w-16 h-10 px-4 py-2 mt-2 mr-4 text-white bg-red-500 rounded-lg" (click)="reset()">Reset</button>
 
   
       </div>
@@ -56,7 +60,7 @@
     </div>
     <div class="w-full p-3">
         <h2 class="mb-2 text-xl font-semibold text-center text-blue-500">Fuel Consumption</h2>
-        <p class="text-3xl font-light text-center ">87K L</p>
+        <p class="text-3xl font-light text-center ">329K L</p>
     </div>
     <div class="w-full p-3">
         <h2 class="mb-2 text-xl font-semibold text-center text-blue-500">Maintenance Due</h2>
@@ -105,7 +109,7 @@
       </div>  
 
 
-      <div class="relative w-1/5 text-xs font-light">
+      <!-- <div class="relative w-1/5 text-xs font-light">
         <label for="car-group-filter" class="block mb-1 text-gray-700">By Company</label>
 
         <input type="text" class="block w-full px-3 py-1 text-xs bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none" placeholder="Search for a specific company" [(ngModel)]="fleetC" (input)="search($event)">
@@ -116,7 +120,7 @@
             </li>
           </ul>
         </div>
-      </div> 
+      </div>  -->
 
 
 

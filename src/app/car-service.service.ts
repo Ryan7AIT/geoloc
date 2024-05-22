@@ -35,6 +35,12 @@ export class CarServiceService {
       apiUrl = `http://localhost:8000/qa/?thing_id=${thing_id}&page=${page}`;
     }
 
+    if (group_id) {
+      apiUrl = `http://localhost:8000/qa/?group_id=${group_id}&page=${page}`;
+    }else if(type_id){
+      apiUrl = `http://localhost:8000/qa/?type_id=${type_id}&page=${page}`;
+    }
+
     return this.http.get(apiUrl);
   }
 
@@ -50,7 +56,7 @@ export class CarServiceService {
     return this.http.get(apiUrl);
   }
 
-  getJourneyNumbers(thing_id: any) {
+  getJourneyNumbers(thing_id: any,group_id?:any,type_id?:any) {
 
     let apiUrl: string;
 
@@ -59,6 +65,12 @@ export class CarServiceService {
     }
     else {
       apiUrl = `http://localhost:8000/journycount?thing_id=${thing_id}`;
+    }
+
+    if (group_id) {
+      apiUrl = `http://localhost:8000/journycount?group_id=${group_id}`;
+    }else if(type_id){
+      apiUrl = `http://localhost:8000/journycount?type_id=${type_id}`;
     }
 
 

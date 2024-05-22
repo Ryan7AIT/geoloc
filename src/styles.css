@@ -18,3 +18,14 @@
   .toggle-checkbox:checked + .toggle-label::before {
     transform: translateX(1.5rem);
   }
+
+
+  /* .background {
+    background-image: url('../dist/geoloc/browser/assets/luke-chesser-JKUTrJ4vK00-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+} */
+.form-container {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.8);
+}

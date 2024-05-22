@@ -29,12 +29,12 @@ export class PredictionComponent {
   ngOnInit(): void {
 
 
-    this.getRealtimeinfo(627);
+    this.getRealtimeinfo(1599);
 
 
     // excecute this functin every 2 second
     setInterval(() => {
-      this.getRealtimeinfo(627);
+      this.getRealtimeinfo(1599);
     }, 10000);
 
 
