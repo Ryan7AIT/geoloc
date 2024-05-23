@@ -98,12 +98,14 @@ getRealtimeinfo(car: any) {
 
     this.rul = data[0].rul;
 
-    if(this.rul < 0){
+    if(this.rul < 2){
       this.rulPercentage = 100;
-    }else if (this.rul > 5000){
+    }else if (this.rul > 2000){
       this.rulPercentage = 20;
     } else if (this.rul > 100 && this.rul < 500){
       this.rulPercentage = 40
+    }else {
+      this.rulPercentage = 60
     }
     
     if(data[0].prediction == 0){

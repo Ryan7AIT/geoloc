@@ -13,7 +13,9 @@
     <ul class="space-y-2 text-sm text-gray-600">
       <li class="flex items-center ">
         <span class="mr-2 font-bold">Car Status:</span>
-        <span class="text-blue-500" style="width: 50px; display: inline-block;">{{car.status}}</span>
+        <span class="text-blue-500" style="width: 50px; display: inline-block;">
+          {{ car.status === 1 ? 'running' : 'stopped' }}
+      </span>
       </li>
       <li class="flex items-center">
         <span class="mr-2 font-bold">Car Name:</span>

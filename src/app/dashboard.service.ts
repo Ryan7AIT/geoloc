@@ -310,7 +310,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
   }
 
 
-  getAlerts(thing_id: number,group_id?:any,type_id?:any) {
+  getAlerts(thing_id: number,type_id?:any,group_id?:any) {
     let apiUrl = `http://localhost:8000/query/alerts`;
     
     if (thing_id == 0) {
@@ -374,7 +374,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     return this.http.get(apiUrl);
   }
 
-  getNumOfAlrersSimpleDay(thing_id: number,month: number,group_id?:any,type_id?:any,year?: number) {
+  getNumOfAlrersSimpleDay(thing_id: number,year: number, month: number,group_id?:any,type_id?:any) {
 
 
     

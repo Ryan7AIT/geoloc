@@ -565,7 +565,6 @@ onButtonClick(path: any) {
   getJourneys() {
     this.carService.getJourneys(this.page,this.thing_id,this.group_id,this.type_id).subscribe((data: any) => {
 
-      console.log(data);
       
       this.journeys = data;
       
@@ -575,7 +574,6 @@ onButtonClick(path: any) {
   getJourneyNumbers() {
     this.carService.getJourneyNumbers(this.thing_id,this.group_id,this.type_id).subscribe((data: any) => {
 
-      console.log(data.length);
       
 
       
