@@ -54,7 +54,7 @@ export class BiComponent implements OnInit {
   public page = 1;
   public startP = 1
   public endP = 5
-
+  public fuelConception = 0;
 
   public monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -82,7 +82,6 @@ export class BiComponent implements OnInit {
 
   public currentDate = new Date();
     
-  // Extract the month number from the current date (months are zero-based, so January is 0)
   public currentMonthNumber = this.currentDate.getMonth()  + 1; // Adding 1 to adjust for zero-based indexing
 
 
@@ -107,10 +106,14 @@ export class BiComponent implements OnInit {
 
 
   ngOnInit() {
+
+    this.getMaintenanceCars()
     
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/login']);
     }
+
+    this.getFuelConsumption();
 
 
     this.getCars();
@@ -151,9 +154,7 @@ export class BiComponent implements OnInit {
   public nextMonth() {
     this.month = this.month + 1;
     this.date = this.monthNames[this.month -1] + ' 2024';
-    // this.date = 'dfdsfsdf'
     
-    console.log(this.date);
     
     this.updateDashboard();
   }
@@ -161,7 +162,6 @@ export class BiComponent implements OnInit {
   public prevMonth() {
     this.month = this.month - 1;
     this.date = this.monthNames[this.month-1] + ' 2024';
-    console.log(this.date);
 
     this.updateDashboard();
   }
@@ -198,9 +198,10 @@ export class BiComponent implements OnInit {
 
 
 
+ 
 
     let carIcon = L.icon({
-      iconUrl: './../../assets/gps-navigation.png', // URL to your car icon image
+      iconUrl: './../../assets/gps-navigation.png', 
       iconSize: [30, 30], // size of the icon
       iconAnchor: [18, 18], // point of the icon which will correspond to marker's location
     });
@@ -213,6 +214,28 @@ export class BiComponent implements OnInit {
       
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public getLastStat() {
 
   this.showSidebar = true;
@@ -223,66 +246,61 @@ public getLastStat() {
   } );
 }
 
-public getCarsWrong() {
+// public getCarsWrong() {
 
-  this.carService.getMapInfo().subscribe((data: any) => {
-    this.cars = data;
+//   this.carService.getMapInfo().subscribe((data: any) => {
+//     this.cars = data;
 
     
-    this.carPositions = data.map((item:any) => ({
-      lat: item.latitude,
-      lng: item.longitude
-    }));
+//     this.carPositions = data.map((item:any) => ({
+//       lat: item.latitude,
+//       lng: item.longitude
+//     }));
 
-    let carIcon = L.icon({
-      iconUrl: './../../assets/gps-navigation.png', // URL to your car icon image
-      iconSize: [35, 35], // size of the icon
-      iconAnchor: [18, 18], // point of the icon which will correspond to marker's location
-    });
-    const markerOptions = {
-      title: 'Marker',
-      icon: carIcon ,
-      draggable: true,
+//     let carIcon = L.icon({
+//       iconUrl: './../../assets/gps-navigation.png', 
+//       iconSize: [35, 35], // size of the icon
+//       iconAnchor: [18, 18], // point of the icon which will correspond to marker's location
+//     });
+//     const markerOptions = {
+//       title: 'Marker',
+//       icon: carIcon ,
+//       draggable: true,
       
 
-    };
+//     };
 
 
-    for (let item of this.cars) {
-      let marker = L.marker([item.latitude, item.longitude],markerOptions).addTo(this.map);
-      marker.on('click', () => {
-        this.selectedCar = item;
+//     for (let item of this.cars) {
+//       let marker = L.marker([item.latitude, item.longitude],markerOptions).addTo(this.map);
+//       marker.on('click', () => {
+//         this.selectedCar = item;
 
-  this.selectedCarId = item.thing_id;
-
-  // setInterval(() => {
-  //   this.getSelectedCar(this.selectedCarId);
-  // }, 2000);
+//   this.selectedCarId = item.thing_id;
 
 
-
-
-        // this.getLastStat();
-
-      });
-    }
+//       });
+//     }
 
     
 
     
 
     
-  } );
+//   } );
 
 
 
-}
+// }
 
 
 public getCars() {
   this.carService.getMapInfo(this.thing_id,this.type_id,this.group_id).subscribe((data: any) => {
     this.cars = data;
+    console.log(data);
+    
 
+    
     this.carPositions = data.map((item:any) => ({
       lat: item.latitude,
       lng: item.longitude
@@ -320,6 +338,9 @@ public getCars() {
         this.showSidebar = true;
         this.getSelectedCar(this.selectedCarId);
       });
+
+      marker.bindTooltip(item.thing_name,   {permanent: false, direction: 'top'});
+
 
       // Add the new marker to the carMarkers array
       this.carMarkers.push(marker);
@@ -388,6 +409,9 @@ onButtonClick(path: any) {
     else {
       this.firstMarker = L.marker(firstPoint, markerOptions).addTo(this.map);
       this.lastMarker = L.marker(lastPoint, markerOptions).addTo(this.map);
+
+      // add a pop up the the first parker
+      this.firstMarker.bindPopup("Start of the journey").openPopup();
 
         this.path = L.polyline(pathCoordinates, { color: 'red' }).addTo(this.map);
 
@@ -484,15 +508,8 @@ onButtonClick(path: any) {
     if( this.time== 'yearly') {
       
       this.distanceChartComponent.updateDashboard('yearly',this.thing_id,this.group_id,this.type_id);
-      // set 0.5 timeout
-      // setTimeout(() => {  
         this.carUtilizationComponent.updateDashboard('yearly',this.thing_id,this.group_id,this.type_id);
-      // }, 100);
-
-      // setTimeout(() => {  
         this.avgMaxSpeedChartComponent.updateDashboard('yearly',this.thing_id,this.group_id,this.type_id);
-      // }, 150);
-
         this.fuelChartComponent.updateDashboard('yearly',this.thing_id,this.group_id,this.type_id);
 
         this.alertChartComponent.updateDashboard('yearly',this.thing_id,this.group_id,this.type_id);
@@ -505,20 +522,13 @@ onButtonClick(path: any) {
 
     if(this.time == 'monthly') {
 
-      // this.date = this.year.toString();
 
       this.date = this.year.toString();
 
 
       this.distanceChartComponent.updateDashboard('monthly',this.thing_id,this.year,this.group_id,this.type_id);
-      // setTimeout(() => {  
         this.carUtilizationComponent.updateDashboard('monthly',this.thing_id,this.year,this.group_id,this.type_id);
-      // }, 100);     
-      
-      // setTimeout(() => {  
         this.avgMaxSpeedChartComponent.updateDashboard('monthly',this.thing_id,this.year,this.group_id,this.type_id);
-      // }, 150);
-
       this.fuelChartComponent.updateDashboard('monthly',this.thing_id,this.year,this.group_id,this.type_id);
 
       this.alertChartComponent.updateDashboard('monthly',this.thing_id,this.year,this.group_id,this.type_id);
@@ -538,18 +548,10 @@ onButtonClick(path: any) {
           // Extract the month number from the current date (months are zero-based, so January is 0)
           let currentMonthNumber = currentDate.getMonth() ; // Adding 1 to adjust for zero-based indexing
     
-          // make the current month in the date var
-          // this.date = monthNames[currentMonthNumber] + ' 2024'
-
 
       this.distanceChartComponent.updateDashboard('daily',this.thing_id,this.group_id,this.type_id,this.year,this.month);
-      // setTimeout(() => {  
         this.carUtilizationComponent.updateDashboard('daily',this.thing_id,this.group_id,this.type_id,this.year,this.month);
-      // }, 100);  
-      
-      // setTimeout(() => {  
         this.avgMaxSpeedChartComponent.updateDashboard('daily',this.thing_id,this.group_id,this.type_id,this.year,this.month);
-      // }, 150);
 
       this.fuelChartComponent.updateDashboard('daily',this.thing_id,this.group_id,this.type_id,this.year,this.month);
 
@@ -704,8 +706,52 @@ public getMaintenance() {
 public getFuelConsumption() {
   this.carService.getFuelConsumption(this.thing_id).subscribe((data: any) => {
 
+
+    this.fuelConception = data[0].fuel_consumption;
+    
+
+  } );
+
+}
+
+
+
+
+isPopupOpen = false;
+
+openPopup() {
+  this.isPopupOpen = true;
+}
+
+closePopup() {
+  this.isPopupOpen = false;
+}
+
+
+public carsM:any= []
+
+public getMaintenanceCars() {
+  this.carService.getMaintenanceCars().subscribe((data: any) => {
+
+    this.carsM = data;
     
   } );
+
+
+
+}
+
+
+deleteCar(index: number) {
+  this.cars.splice(index, 1);
+}
+
+
+public delete(thing_id: any) {
+  this.carService.deleteCar(thing_id).subscribe((data: any) => {
+    this.getMaintenanceCars();
+  } );
+
 
 }
 

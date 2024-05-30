@@ -354,22 +354,27 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
     return this.http.get(apiUrl);
   }
 
-  getNumOfAlrersSimpleMonth(thing_id: number,group_id?:any,type_id?:any,year?: number) {
+  getNumOfAlrersSimpleMonth(thing_id: number,year: number,group_id?:any,type_id?:any) {
+
+    console.log('year',year); 
+    console.log('thing_id',thing_id);
+    
+    
     let apiUrl = `http://localhost:8000/query/alert2?years=${year}`;
 
-    if (thing_id == 0) {
-      apiUrl = `http://localhost:8000/query/alert2?years=${year}`;
-    }else {
-      apiUrl = `http://localhost:8000/query/alert2?years=${year}&thing_id=${thing_id}`;
-    }
+    // if (thing_id == 0) {
+    //   apiUrl = `http://localhost:8000/query/alert2?years=${year}`;
+    // }else {
+    //   apiUrl = `http://localhost:8000/query/alert2?years=${year}&thing_id=${thing_id}`;
+    // }
 
-    if (group_id && group_id != 0) {
-      apiUrl = `http://localhost:8000/query/alert2?years=${year}&group_id=${group_id}`;
-    }
+    // if (group_id && group_id != 0) {
+    //   apiUrl = `http://localhost:8000/query/alert2?years=${year}&group_id=${group_id}`;
+    // }
 
-    if (type_id) {
-      apiUrl = `http://localhost:8000/query/alert2?years=${year}&type_id=${type_id}`;
-    }
+    // if (type_id) {
+    //   apiUrl = `http://localhost:8000/query/alert2?years=${year}&type_id=${type_id}`;
+    // }
 
     return this.http.get(apiUrl);
   }
@@ -421,6 +426,8 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
   }
 
   getNumOfAlertsMeduimMonth(thing_id: number,year: number,group_id?:any,type_id?:any) {
+
+    
     let apiUrl = `http://localhost:8000/query/alert2/t2?years=${year}`;
 
     if (thing_id == 0) {

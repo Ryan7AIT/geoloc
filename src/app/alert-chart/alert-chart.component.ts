@@ -175,11 +175,6 @@ export class AlertChartComponent {
 
 
   updateDashboard(mode:string,thing_id:any,group_id:any,type_id:any,year?:number,month?:number) {
-
-
-
-
-    // return;
     
     this.dashboardService.getAlerts(thing_id,type_id,group_id).subscribe((data: any) => {
 
@@ -262,6 +257,7 @@ export class AlertChartComponent {
 
 
       this.dashboardService.getNumOfAlrersSimpleMonth(thing_id,group_id,type_id,year as number).subscribe((data: any) => {
+        
         this.xAxisLabels2 = data[0];
         this.yAxisData2 = data[1];
         if(data[1].length == 0){
@@ -313,8 +309,6 @@ export class AlertChartComponent {
        
         this.chart2.data.labels = data[0];
         this.chart2.data.datasets[0].data = data[1];
-        console.log('Simple alert data');
-        console.log(this.chart2.data.labels, this.chart2.data.datasets[0].data);
 
         
         this.chart2.update();

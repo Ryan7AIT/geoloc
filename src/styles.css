@@ -29,3 +29,21 @@
     backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 0.8);
 }
+
+/* app.component.css */
+.popup {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+
+.leaflet-control-zoom-fullscreen {
+  background: white url('data:image/svg+xml;utf8,<svg fill="%23000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14,3h7v7h-2V6.41l-4.29,4.3-1.42-1.42L17.59,5H14V3z M11,16.59L5.41,11H9V9H2v7h2v-3.59l5.29,5.3L11,16.59z M21,17h-7v2h3.59 l-5.3,5.29l1.42,1.42L19,20.41V24h2V17z"/></svg>') no-repeat center center;
+  background-size: 18px 18px;
+  width: 34px;
+  height: 34px;
+  border: none;
+}
+
+.leaflet-control-zoom-fullscreen:after {
+  display: none; /* Hide default text if any */
+}

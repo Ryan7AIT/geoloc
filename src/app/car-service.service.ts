@@ -139,6 +139,20 @@ export class CarServiceService {
   }
 
 
+  getMaintenanceCars() {
+    const apiUrl = `http://localhost:8000/maintenanceC`;
+
+    return this.http.get(apiUrl);
+  }
+
+
+  deleteCar(thing_id: any) {
+    const apiUrl = `http://localhost:8000/delete_car?thing_id=${thing_id}`;
+
+    return this.http.put(apiUrl, {});
+  }
+
+
 
 }
 
