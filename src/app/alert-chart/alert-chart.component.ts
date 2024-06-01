@@ -14,17 +14,17 @@ export class AlertChartComponent {
   constructor(private dashboardService: DashboardService) {}
   public thing_id = 0;  
 
-  public xAxisLabels: string[] = ['Alert simple','Anomalie degré simple','Anomalie degré Moyen'];
+  public xAxisLabels: string[] = ['Alert simple','Single degree anomaly','Medium degree anomaly'];
   public yAxisData: string[] = [];
 
 
-  public xAxisLabels2: string[] = ['tttt'];
+  public xAxisLabels2: string[] = [''];
   public yAxisData2: number[] = [];
 
-  public xAxisLabels3: string[] = ['ttt'];
+  public xAxisLabels3: string[] = [''];
   public yAxisData3: number[] = [];
 
-  public xAxisLabels4: string[] = ['t'];
+  public xAxisLabels4: string[] = [''];
   public yAxisData4: number[] = [];
 
   public chart: any;
@@ -182,7 +182,8 @@ export class AlertChartComponent {
       
       // this.xAxisLabels = data[0];
   // public xAxisLabels: string[] = ['Alert simple','Anomalie degré simple','Anomalie degré Moyen'];
-      this.chart.data.labels = ['Alert simple','Anomalie degré simple','Anomalie degré Moyen']; 
+      this.chart.data.labels = ['Alert simple','Single degree anomaly','Medium degree anomaly']; 
+
       this.chart.data.datasets[0].data = data[1];
       this.chart.update();
     });

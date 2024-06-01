@@ -6,6 +6,8 @@ import { RouterOutlet } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { Router, NavigationEnd } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +21,21 @@ export class DashboardComponent  implements OnInit{
   data: any;
   public showSidebar = false;
 
-  constructor(private dataService: DashboardService, private authService: AuthService) {}
+  isLoginPage: boolean = false;
+
+
+  constructor(private dataService: DashboardService, private authService: AuthService,private router: Router) {
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isLoginPage = this.router.url === '/login';
+      }
+    });
+
+
+  }
+
+
 
   ngOnInit() {
     // this.dataService.getDataFromApi().subscribe(

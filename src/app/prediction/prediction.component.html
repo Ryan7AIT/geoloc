@@ -152,21 +152,21 @@
 
     <div class="flex justify-between space-x-6 row1">
         <div class="w-1/2">
-            <app-realtimefuel></app-realtimefuel>
+            <app-realtimefuel [thing_id]=thing_id></app-realtimefuel>
         </div>
 
         <div class="w-1/2">
-            <app-realtimebattery></app-realtimebattery>
+            <app-realtimebattery [thing_id]=thing_id></app-realtimebattery>
         </div>
     </div>
 
     <div class="flex justify-between space-x-6 row1">
-        <div class="w-1/2">
+        <!-- <div class="w-1/2">
             <app-realtimespeed></app-realtimespeed>
-        </div>
+        </div> -->
 
         <div class="w-1/2">
-            <app-realtimeoil></app-realtimeoil>
+            <app-realtimeoil [thing_id]=thing_id></app-realtimeoil>
         </div>
     </div>
 

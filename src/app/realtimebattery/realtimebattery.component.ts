@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { PredictionService } from '../prediction.service';
@@ -15,7 +15,7 @@ Chart.register(...registerables, annotationPlugin);
 export class RealtimebatteryComponent {
 
 
-  
+    @Input() public thing_id: any;
  
   
   
@@ -26,6 +26,8 @@ export class RealtimebatteryComponent {
     constructor(private predictionService: PredictionService) {}
   
     ngOnInit(): void {
+      console.log(this.thing_id);
+      
       this.createChart();
       
       this.getDataFromApi();
@@ -89,6 +91,28 @@ export class RealtimebatteryComponent {
                   }
   
                 },
+
+                line2: {
+                  type: 'line',
+                  yMin:1,
+                  yMax: 1,
+                  borderColor: 'red',
+                  borderWidth: 2,
+                  borderDash: [4, 4],
+                  label: {
+                    color: 'red',
+                    content: 'Threshold',
+                    position: 'start',
+                    display: true,
+                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                    borderColor: 'red',
+                    borderWidth: 1,
+                    borderRadius: 2,
+                    borderDash: [4, 4],
+                  }
+  
+                },
+
               },
             },
           },
@@ -100,7 +124,7 @@ export class RealtimebatteryComponent {
 
     getDataFromApi() {
       // Call the appropriate method from the dashboard service to fetch data from the API endpoint
-      this.predictionService.getOilData().subscribe(
+      this.predictionService.getBatteryData(this.thing_id).subscribe(
         (data:any) => {
           
           // Process the data returned from the API

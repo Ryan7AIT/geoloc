@@ -97,7 +97,7 @@ export class CarServiceService {
   }
 
   getFuelConsumption(thing_id: any) {
-    const apiUrl = `http://localhost:8000/fuelconsumption`;
+    const apiUrl = `http://localhost:8000/fuelconsumption?thing_id=${thing_id}`;
 
     return this.http.get(apiUrl);
   }

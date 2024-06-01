@@ -47,3 +47,23 @@
 .leaflet-control-zoom-fullscreen:after {
   display: none; /* Hide default text if any */
 }
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.pulse-animation {
+  animation: pulse 1s infinite ease-in-out;
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { PredictionService } from '../prediction.service';
@@ -14,7 +14,8 @@ Chart.register(...registerables, annotationPlugin);
 export class RealtimeoilComponent {
 
 
-  
+
+  @Input() public thing_id: any;
 
   
     public xAxisLabels: string[] = [];
@@ -112,7 +113,7 @@ export class RealtimeoilComponent {
 
     getDataFromApi() {
       // Call the appropriate method from the dashboard service to fetch data from the API endpoint
-      this.predictionService.getOilData().subscribe(
+      this.predictionService.getOilData(this.thing_id).subscribe(
         (data:any) => {
           
           // Process the data returned from the API

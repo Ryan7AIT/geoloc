@@ -55,7 +55,12 @@ export class BiComponent implements OnInit {
   public startP = 1
   public endP = 5
   public fuelConception = 0;
+  public maintenanceDue = 0;
+  private pathCoordinates2: [number, number][] = [];
+  private currentIndex: number = 0;
+  private isAnimating: boolean = false;
 
+  
   public monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
@@ -69,6 +74,7 @@ export class BiComponent implements OnInit {
   public company_id = 0;
   public searchResults:any = [];
   public searchResultsC:any = [];
+  public isPath = false;
 
   public thing: any;
   public fleet = 'My fleet';
@@ -83,7 +89,9 @@ export class BiComponent implements OnInit {
   public currentDate = new Date();
     
   public currentMonthNumber = this.currentDate.getMonth()  + 1; // Adding 1 to adjust for zero-based indexing
+  // const carMarker = L.marker(firstPoint, { icon: carIcon }).addTo(this.map);
 
+  public carMarker: any = null;
 
   public month =  this.currentMonthNumber;
 
@@ -169,7 +177,7 @@ export class BiComponent implements OnInit {
   public initializeMap() {
     this.map = L.map('map', {
       fullscreenControl: true,  // Add this option to enable the fullscreen control
-    } as L.MapOptions).setView([28.0339, 1.6596], 5); // Set the initial center and zoom level
+    } as L.MapOptions).setView([32.0339, 1.6596], 5); // Set the initial center and zoom level
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
@@ -181,11 +189,11 @@ export class BiComponent implements OnInit {
       L.latLng(37.09, 11.98)  // Northeast coordinates
     );
 
-    this.map.setMaxBounds(algeriaBounds);
+    // this.map.setMaxBounds(algeriaBounds);
 
-    this.map.on('drag', () => {
-        this.map.panInsideBounds(algeriaBounds, { animate: false });
-    });
+    // this.map.on('drag', () => {
+    //     this.map.panInsideBounds(algeriaBounds, { animate: false });
+    // });
 
   
       this.map.on('exitFullscreen', () => {
@@ -205,6 +213,8 @@ export class BiComponent implements OnInit {
       iconSize: [30, 30], // size of the icon
       iconAnchor: [18, 18], // point of the icon which will correspond to marker's location
     });
+
+
     const markerOptions = {
       title: 'Marker',
       icon: carIcon ,
@@ -297,7 +307,6 @@ public getLastStat() {
 public getCars() {
   this.carService.getMapInfo(this.thing_id,this.type_id,this.group_id).subscribe((data: any) => {
     this.cars = data;
-    console.log(data);
     
 
     
@@ -363,6 +372,8 @@ onButtonClick(path: any) {
         return [parseFloat(lat), parseFloat(lng)];
     });
 
+    this.pathCoordinates2 = pathCoordinates;
+
 
     let firstPoint = pathCoordinates[0];
     let lastPoint = pathCoordinates[pathCoordinates.length - 1];
@@ -386,6 +397,7 @@ onButtonClick(path: any) {
 
     // If the path is on the map, remove it and add the car markers
     if (this.path && this.map.hasLayer(this.path)) {
+      this.isPath= false;
         this.path.removeFrom(this.map);
         console.log(this.firstMarker);
 
@@ -407,6 +419,19 @@ onButtonClick(path: any) {
     }
     // If the path is not on the map, create a new path, add it, and remove the car markers
     else {
+
+      this.isPath = true;
+
+      let carIcon = L.icon({
+        iconUrl: './../../assets/gps-navigation.png', 
+        iconSize: [30, 30], // size of the icon
+        iconAnchor: [18, 18], // point of the icon which will correspond to marker's location
+      });
+  
+      this.carMarker = L.marker(firstPoint, { icon: carIcon }).addTo(this.map);
+
+
+
       this.firstMarker = L.marker(firstPoint, markerOptions).addTo(this.map);
       this.lastMarker = L.marker(lastPoint, markerOptions).addTo(this.map);
 
@@ -418,6 +443,8 @@ onButtonClick(path: any) {
         for (let marker of this.carMarkers) {
             marker.removeFrom(this.map);
         }
+
+        this.animateCar();
     }
 
     // Move the map to the path
@@ -425,6 +452,92 @@ onButtonClick(path: any) {
         this.map.fitBounds(this.path.getBounds());
     }
 }
+
+
+private animationInterval: any;
+
+
+
+
+
+private animateCar(): void {
+  const totalPoints = this.pathCoordinates2.length;
+  const intervalTime = 1500; // time in milliseconds between each update
+
+  if (this.animationInterval) {
+    clearInterval(this.animationInterval);
+  }
+
+  this.animationInterval = setInterval(() => {
+    if (this.currentIndex < totalPoints) {
+      this.carMarker.setLatLng(this.pathCoordinates2[this.currentIndex]);
+      this.map.panTo(this.pathCoordinates2[this.currentIndex], { animate: true, duration: 1 });
+      this.currentIndex++;
+    } else {
+      clearInterval(this.animationInterval);
+      this.isAnimating = false;
+    }
+  }, intervalTime);
+}
+
+toggleAnimation(): void {
+  if (this.isAnimating) {
+    clearInterval(this.animationInterval);
+    this.isAnimating = false;
+  } else {
+    this.isAnimating = true;
+    this.animateCar();
+  }
+}
+
+resetAnimation(): void {
+  clearInterval(this.animationInterval);
+  this.isAnimating = false;
+  this.currentIndex = 0;
+  if (this.pathCoordinates2.length > 0) {
+    this.carMarker.setLatLng(this.pathCoordinates2[0]);
+    this.map.panTo(this.pathCoordinates2[0], { animate: true, duration: 1 });
+  }
+}
+
+
+
+
+
+
+
+startAnimation(): void {
+  let currentIndex = 0;
+  const totalPoints = this.pathCoordinates2.length;
+  const intervalTime = 1000; // time in milliseconds between each update
+
+  if (this.animationInterval) {
+    clearInterval(this.animationInterval);
+  }
+
+  this.animationInterval = setInterval(() => {
+    if (currentIndex < totalPoints) {
+      this.carMarker.setLatLng(this.pathCoordinates2[currentIndex]);
+      this.map.panTo(this.pathCoordinates2[currentIndex], { animate: true, duration: 1 });
+      currentIndex++;
+    } else {
+      clearInterval(this.animationInterval);
+    }
+  }, intervalTime);
+}
+
+stopAnimation(): void {
+  if (this.animationInterval) {
+    clearInterval(this.animationInterval);
+  }
+}
+
+
+
+
+
+
+
 
 
   // get selected card from api
@@ -638,6 +751,11 @@ onButtonClick(path: any) {
 
     
     this.thing_id = id;
+    this.group_id = 0;
+    this.type_id = 0;
+    this.type='type0'
+    console.log(this.group_id,this.type_id);
+    
     this.updateDashboard();
     this.getJourneys();
     this.fleet = name;
@@ -732,6 +850,8 @@ public carsM:any= []
 
 public getMaintenanceCars() {
   this.carService.getMaintenanceCars().subscribe((data: any) => {
+
+    this.maintenanceDue = data.length;
 
     this.carsM = data;
     

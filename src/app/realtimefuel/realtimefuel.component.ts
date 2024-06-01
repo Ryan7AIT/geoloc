@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { PredictionService } from '../prediction.service';
@@ -16,10 +16,14 @@ export class RealtimefuelComponent {
   public xAxisLabels: string[] = [];
   public yAxisData: number[] = [];
 
+  @Input() public thing_id: any;
+
 
   constructor(private predictionService: PredictionService) {}
 
   ngOnInit(): void {
+    console.log(this.thing_id);
+    
     this.createChart();
     
     this.getDataFromApi();
@@ -112,7 +116,7 @@ export class RealtimefuelComponent {
 
   getDataFromApi() {
     // Call the appropriate method from the dashboard service to fetch data from the API endpoint
-    this.predictionService.getFuelData().subscribe(
+    this.predictionService.getFuelData(this.thing_id).subscribe(
       (data:any) => {
         // console.log(data);
         

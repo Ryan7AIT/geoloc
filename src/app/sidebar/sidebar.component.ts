@@ -13,11 +13,13 @@ export class SidebarComponent {
   public status:any;
 
   ngOnInit(): void {
-        if(this.car.status == 1) {
-          this.car.status = 'Running';
-        }else {
-          this.car.status = 'Stopped';
-        }  
+    console.log(this.car);
+    
+        // if(this.car.status == 1) {
+        //   this.car.status = 'Running';
+        // }else {
+        //   this.car.status = 'Stopped';
+        // }  
   }
   
   // new event emiter

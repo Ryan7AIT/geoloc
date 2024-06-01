@@ -11,22 +11,22 @@ export class PredictionService {
 
 
   // getOilData from api url
-  getOilData() {
-    const url = 'http://localhost:8000/historical/oil'
+  getOilData(thing_id?: any) {
+    const url = `http://localhost:8000/historical/oil?thing_id=${thing_id}`
 
     return this.http.get(url);
   }
 
     // getOilData from api url
-    getFuelData() {
-      const url = 'http://localhost:8000/historical/fuel'
+    getFuelData(thing_id: any) {
+      const url = `http://localhost:8000/historical/fuel?thing_id=${thing_id}`
   
       return this.http.get(url);
     }
 
     // get battery from api url
-    getBatteryData() {
-      const url = 'http://localhost:8000/historical/battery'
+    getBatteryData(thing_id: any) {
+      const url = `http://localhost:8000/historical/battery?thing_id=${thing_id}`
   
       return this.http.get(url);
     }
@@ -37,6 +37,14 @@ export class PredictionService {
       const url = 'http://localhost:8000/get_car2'
   
       return this.http.get(url);
+    }
+
+    // add car to maintenance
+
+    addCarToMaintenance(car: any) {
+      const url = 'http://localhost:8000/add_car_to_maintenance'
+  
+      return this.http.post(url, car);
     }
 
 
