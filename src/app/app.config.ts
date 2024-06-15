@@ -12,6 +12,7 @@ import { JourneyComponent } from './journey/journey.component';
 import { AdminComponent } from './admin/admin.component';
 import { BiComponent } from './bi/bi.component';
 import { LoginComponent } from './login/login.component';
+import { MaintenanceComponent } from './maintenance/maintenance.component';
 
 const routes: Routes = [
   { path: 'realtime', component: RealTimeStatsComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'admin', component: AdminComponent},
   {path: 'bi', component: BiComponent},
   { path: 'login', component: LoginComponent },
+  {path: 'maintenance', component: MaintenanceComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 

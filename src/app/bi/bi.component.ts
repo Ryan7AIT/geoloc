@@ -93,7 +93,7 @@ export class BiComponent implements OnInit {
 
   public carMarker: any = null;
 
-  public month =  this.currentMonthNumber;
+  public month =  3;
 
 
   public reset(){
@@ -308,7 +308,7 @@ public getCars() {
   this.carService.getMapInfo(this.thing_id,this.type_id,this.group_id).subscribe((data: any) => {
     this.cars = data;
     
-
+    
     
     this.carPositions = data.map((item:any) => ({
       lat: item.latitude,
@@ -439,12 +439,15 @@ onButtonClick(path: any) {
       this.firstMarker.bindPopup("Start of the journey").openPopup();
 
         this.path = L.polyline(pathCoordinates, { color: 'red' }).addTo(this.map);
+        
 
         for (let marker of this.carMarkers) {
+          console.log(marker);
+          
             marker.removeFrom(this.map);
         }
 
-        this.animateCar();
+        // this.animateCar();
     }
 
     // Move the map to the path
@@ -569,6 +572,13 @@ stopAnimation(): void {
 
 
   updateDash(event?: any) {
+
+    this.thing_id = 0;
+    this.fleet = 'My fleet';
+
+
+    console.log(this.thing_id);
+    
 
     if(event.target.value == 'type0') {
       this.type_id = 0
@@ -754,8 +764,8 @@ stopAnimation(): void {
     this.group_id = 0;
     this.type_id = 0;
     this.type='type0'
-    console.log(this.group_id,this.type_id);
-    
+
+  
     this.updateDashboard();
     this.getJourneys();
     this.fleet = name;
