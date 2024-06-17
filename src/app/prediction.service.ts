@@ -42,8 +42,10 @@ export class PredictionService {
     // add car to maintenance
 
     addCarToMaintenance(car: any) {
-      const url = 'http://localhost:8000/add_car_to_maintenance'
-  
+      const url = `http://localhost:8000/add_car_to_maintenance?thing_id=${car}`
+      car = {
+        thing_id: car
+      }
       return this.http.post(url, car);
     }
 

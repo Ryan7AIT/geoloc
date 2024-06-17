@@ -833,7 +833,8 @@ public getMaintenance() {
 // get fuel concemtion
 public getFuelConsumption() {
   this.carService.getFuelConsumption(this.thing_id).subscribe((data: any) => {
-
+    console.log(data[0]);
+    
 
     this.fuelConception = data[0].fuel_consumption;
     

@@ -91,7 +91,8 @@ getRealtimeinfo(car: any) {
   this.carService.getThing(car).subscribe((data: any) => {
     
     
-  
+    console.log(data[0]);
+    
     this.car = data[0]
     
   
@@ -117,7 +118,7 @@ getRealtimeinfo(car: any) {
 
       this.rulPercentage = 100;
 
-      this.predcitionService.addCarToMaintenance(this.car).subscribe((data: any) => {
+      this.predcitionService.addCarToMaintenance(this.thing_id).subscribe((data: any) => {
         console.log(data)
       }
       );
