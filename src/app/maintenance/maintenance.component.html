@@ -16,22 +16,20 @@
         <thead>
           <tr>
             <th class="px-4 py-2 border-b">Car Name</th>
-            <th class="px-4 py-2 border-b">Registration Number</th>
-            <th class="px-4 py-2 border-b">Last Maintenance Date</th>
-            <th class="px-4 py-2 border-b">Predicted RUL</th>
+            <th class="px-4 py-2 border-b">Maintenance Status </th>
+            <th class="px-4 py-2 border-b"> Maintenance Date</th>
             <th class="px-4 py-2 border-b">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let car of filteredCars">
             <td class="px-4 py-2 border-b">{{ car.name }}</td>
-            <td class="px-4 py-2 border-b">{{ car.registrationNumber }}</td>
-            <td class="px-4 py-2 border-b">{{ car.lastMaintenanceDate | date }}</td>
-            <td class="px-4 py-2 border-b">{{ car.predictedRUL }} days</td>
+            <td class="px-4 py-2 border-b">{{ car.maintenance}}</td>
+            <td class="px-4 py-2 border-b">{{ car.maintenance_date | date }}</td>
             <td class="px-4 py-2 border-b">
               <button
                 class="px-4 py-2 text-white bg-blue-500 rounded"
-                (click)="scheduleMaintenance(car)"
+                (click)="delete(car.thing_id)"
               >
                 Schedule Maintenance
               </button>

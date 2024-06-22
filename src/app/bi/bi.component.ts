@@ -420,6 +420,7 @@ onButtonClick(path: any) {
     // If the path is not on the map, create a new path, add it, and remove the car markers
     else {
 
+      
       this.isPath = true;
 
       let carIcon = L.icon({
@@ -447,7 +448,7 @@ onButtonClick(path: any) {
             marker.removeFrom(this.map);
         }
 
-        // this.animateCar();
+        this.animateCar();
     }
 
     // Move the map to the path
@@ -833,7 +834,6 @@ public getMaintenance() {
 // get fuel concemtion
 public getFuelConsumption() {
   this.carService.getFuelConsumption(this.thing_id).subscribe((data: any) => {
-    console.log(data[0]);
     
 
     this.fuelConception = data[0].fuel_consumption;

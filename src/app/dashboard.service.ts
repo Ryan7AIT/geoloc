@@ -150,7 +150,7 @@ currentMonthNumber = this.currentDate.getMonth() + 1; // Adding 1 to adjust for 
        apiUrl = `http://localhost:8000/query/time2?years=${year}&months=${month}`;
     }
     else {
-        apiUrl = `http://localhost:8000/query/time?years=${year}&months=${month}&thing_id=${thing_id}`;
+        apiUrl = `http://localhost:8000/query/time2?years=${year}&months=${month}&thing_id=${thing_id}`;
     }
 
     if(group_id) {

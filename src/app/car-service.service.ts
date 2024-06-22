@@ -20,6 +20,13 @@ export class CarServiceService {
     return this.http.get(apiUrl);
   }
 
+
+  public getCarsML() {
+    const apiUrl = `http://localhost:8000/get_carsML`;
+
+    return this.http.get(apiUrl);
+  }
+
   getJourney(car: any) {
     const apiUrl = `http://localhost:8000/journey/?thing=${car}`;
 

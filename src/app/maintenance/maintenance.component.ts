@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CarServiceService } from '../car-service.service';
 
 interface Car {
   name: string;
@@ -17,22 +18,23 @@ interface Car {
   templateUrl: './maintenance.component.html',
   styleUrl: './maintenance.component.css'
 })
-export class MaintenanceComponent {
+export class MaintenanceComponent implements OnInit {
+
+  ngOnInit() {
+    this.getCras();
+  }
+
+  constructor(private carService: CarServiceService) { }
 
   searchTerm: string = '';
-  cars: Car[] = [
-    { name: 'Car A', registrationNumber: 'ABC123', lastMaintenanceDate: new Date('2024-01-01'), predictedRUL: 120 },
-    { name: 'Car B', registrationNumber: 'XYZ456', lastMaintenanceDate: new Date('2024-03-15'), predictedRUL: 90 },
-    { name: 'Car C', registrationNumber: 'DEF789', lastMaintenanceDate: new Date('2024-06-01'), predictedRUL: 60 },
-    // Add more cars as needed
-  ];
-  filteredCars: Car[] = [...this.cars];
+  cars: any[] = []
+  filteredCars!: any ;
 
 
   filterCars(): void {
     this.filteredCars = this.cars.filter(car =>
-      car.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      car.registrationNumber.toLowerCase().includes(this.searchTerm.toLowerCase())
+      car.name.toLowerCase().includes(this.searchTerm.toLowerCase()) 
+      // car.registrationNumber.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
@@ -40,6 +42,27 @@ export class MaintenanceComponent {
     // Implement the logic to schedule maintenance
     console.log(`Scheduling maintenance for ${car.name}`);
   }
+
+
+  public getCras() {
+    this.carService.getCarsML().subscribe((data: any) => {
+      console.log(data);
+      this.cars = data;
+      this.filteredCars = this.cars;
+      
+    });
+  }
+
+
+  public delete(thing_id: any) {
+    this.carService.deleteCar(thing_id).subscribe((data: any) => {
+      this.getCras();
+    } );
+  
+  
+  }
+
+
 
 
 
