@@ -67,3 +67,8 @@
 .pulse-animation {
   animation: pulse 1s infinite ease-in-out;
 }
+
+
+.active {
+  @apply border-l-4 text-rose-600 border-l-rose-600;
+}

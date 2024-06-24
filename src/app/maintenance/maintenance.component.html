@@ -1,6 +1,21 @@
 <div class="min-h-screen p-4 bg-gray-100">
-    <div class="p-6 mx-auto bg-white rounded shadow max-w-7xl">
-      <h1 class="mb-4 text-2xl font-bold">Fleet Maintenance</h1>
+
+  <div class="flex justify-center my-4 ">
+    <button 
+      (click)="showTable('table1')" 
+      class="px-4 py-2 mx-2 font-bold text-white transition duration-300 ease-in-out bg-blue-500 rounded hover:bg-blue-700">
+      Cars that need maintenance
+    </button>
+    <button 
+      (click)="showTable('table2')" 
+      class="px-4 py-2 mx-2 font-bold text-white transition duration-300 ease-in-out bg-green-500 rounded hover:bg-green-700">
+      All the cars
+    </button>
+  </div>
+
+
+    <div *ngIf="currentTable === 'table1'" class="p-6 mx-auto bg-white rounded shadow max-w-7xl">
+      <h1 class="mb-4 text-2xl font-bold">List of the  vehicles needs maintenance</h1>
   
       <div class="flex items-center justify-between mb-4">
         <input
@@ -38,5 +53,46 @@
         </tbody>
       </table>
     </div>
+
+
+
+
+    <div *ngIf="currentTable === 'table2'" class="p-6 mx-auto bg-white rounded shadow max-w-7xl">
+      <h1 class="mb-4 text-2xl font-bold">List of all the vehicles</h1>
+  
+      <div class="flex items-center justify-between mb-4">
+        <input
+          type="text"
+          placeholder="Search for a car..."
+          class="w-1/3 px-4 py-2 border border-gray-300 rounded"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="filterAllCars()"
+        />
+      </div>
+  
+      <table class="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 border-b">Car Name </th>
+            <th class="px-4 py-2 border-b">Car plate </th>
+            <th class="px-4 py-2 border-b"> Last Maintenance Date </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of filteredAllCars">
+            <td class="px-4 py-2 border-b">{{ car.name }}</td>
+            <td class="px-4 py-2 border-b">{{ car.plate}}</td>
+            <td class="px-4 py-2 border-b">/</td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+
+  
   </div>
   

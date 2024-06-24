@@ -27,6 +27,22 @@ export class CarServiceService {
     return this.http.get(apiUrl);
   }
 
+  public getCarsAll(page: any) {
+    const apiUrl = `http://localhost:8000/get_carsAll?page=${page}`;
+
+    return this.http.get(apiUrl);
+  }
+
+
+
+  public getCarsAll2(page: any) {
+    const apiUrl = `http://localhost:8000/get_carsAll2?page=${page}`;
+
+    return this.http.get(apiUrl);
+  }
+
+
+
   getJourney(car: any) {
     const apiUrl = `http://localhost:8000/journey/?thing=${car}`;
 
